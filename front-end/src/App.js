@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './FileUpload.js';
+import FileUpload from './FileUpload.js';
 
 class App extends Component {
 
@@ -36,6 +38,9 @@ class App extends Component {
         </header>
         <div>
           <p>Notes: {this.state.notes}</p>
+        </div>
+        <div>
+          <FileUpload/>
         </div>
       </div>
     );
