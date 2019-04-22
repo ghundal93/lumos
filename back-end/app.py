@@ -43,7 +43,7 @@ def upload():
             filename = file.filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             data = Data.Data(app.config['UPLOAD_FOLDER'], filename)
-            return jsonify({"message":"BLESS YOU!","summary":data.summarize_data()}),200
+            return jsonify({"message":"BLESS YOU!","summary":data.summarize_data(),"corr":data.get_corr_matrix()}),200
         else :
             return jsonify({"message":"NOT A CSV FILE"}),200
     return jsonify({"message":"SUCCESS"}),200
