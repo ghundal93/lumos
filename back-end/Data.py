@@ -10,3 +10,6 @@ class Data:
 
     def summarize_data(self):
         return json.loads(self.df.describe().to_json())
+    
+    def get_corr_matrix(self):
+        return self.df.corr().values.tolist()
