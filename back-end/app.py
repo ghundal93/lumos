@@ -7,6 +7,7 @@ from itertools import islice
 from flask_json import json_response
 from flask_cors import CORS, cross_origin
 import os
+import Data
 
 UPLOAD_FOLDER = "/Users/gags/Documents/Stony/Sme2/Visualisation/CSE564_Project/"
 ALLOWED_EXTENSIONS = set(['csv'])
@@ -41,11 +42,12 @@ def upload():
             # filename = secure_filename(file.filename)
             filename = file.filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return jsonify({"message":"BLESS YOU!"}),200
+            data = Data.Data(app.config['UPLOAD_FOLDER'], filename)
+            return jsonify({"message":"BLESS YOU!","summary":data.summarize_data()}),200
         else :
             return jsonify({"message":"NOT A CSV FILE"}),200
     return jsonify({"message":"SUCCESS"}),200
 
 if __name__ == "__main__":
-    #####TASK 3
+    data = None
     app.run(debug=True)
