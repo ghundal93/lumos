@@ -10,12 +10,14 @@ import os
 import Data
 
 UPLOAD_FOLDER = "/Users/gags/Documents/Stony/Sme2/Visualisation/CSE564_Project/"
+UPLOADED_FILE_NAME = "data.csv"
 ALLOWED_EXTENSIONS = set(['csv'])
 #First of all you have to import it from the flask module:
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['FILE_NAME'] = UPLOADED_FILE_NAME
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -41,12 +43,17 @@ def upload():
         if file and allowed_file(file.filename):
             # filename = secure_filename(file.filename)
             filename = file.filename
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            data = Data.Data(app.config['UPLOAD_FOLDER'], filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] ))
+            data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
             return jsonify({"message":"BLESS YOU!","summary":data.summarize_data(),"corr":data.get_corr_matrix()}),200
         else :
             return jsonify({"message":"NOT A CSV FILE"}),200
     return jsonify({"message":"SUCCESS"}),200
+
+@app.route("/getSummary",methods=["GET"])
+def getSummary():
+    data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    return jsonify({"summary":data.summarize_data(),"corr":data.get_corr_matrix()}),200
 
 if __name__ == "__main__":
     data = None
