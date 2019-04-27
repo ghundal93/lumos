@@ -13,3 +13,9 @@ class Data:
     
     def get_corr_matrix(self):
         return self.df.corr().values.tolist()
+    
+    def get_col_names(self):
+        return self.df.columns.tolist()
+    
+    def get_selected_col_data(self,colId):
+        return self.df.iloc[:,int(colId)].tolist()
