@@ -9,7 +9,7 @@ from flask_cors import CORS, cross_origin
 import os
 import Data
 
-UPLOAD_FOLDER = "/Users/gags/Documents/Stony/Sme2/Visualisation/CSE564_Project/"
+UPLOAD_FOLDER = os.getcwd()+"/Uploaded_data/"
 UPLOADED_FILE_NAME = "data.csv"
 ALLOWED_EXTENSIONS = set(['csv'])
 #First of all you have to import it from the flask module:
@@ -54,6 +54,17 @@ def upload():
 def getSummary():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
     return jsonify({"summary":data.summarize_data(),"corr":data.get_corr_matrix()}),200
+
+@app.route("/getColNames",methods=["GET"])
+def getColNames():
+    data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    return jsonify({"col_names":data.get_col_names()}),200
+
+@app.route("/getSelectedColumnData",methods=["GET"])
+def getSelectedColumnData():
+    data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    colId = request.args['colId']
+    return jsonify({"selected_data":data.get_selected_col_data(colId)}),200
 
 if __name__ == "__main__":
     data = None

@@ -5,6 +5,11 @@ import './FileUpload.js';
 import DataSummary from './DataSummary.js';
 import DataVisualization from './DataVisualization.js';
 import FileUpload from './FileUpload.js';
+//import Tabs from 'react-bootstrap/Tabs';
+//import Tab from 'react-bootstrap/Tab';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import "react-tabs/style/react-tabs.css";
+import Dashboard from './Dashboard';
 
 class App extends Component {
 // states - UPLOAD, SUMMARIZE, VISUALIZE
@@ -29,17 +34,21 @@ class App extends Component {
   }
 
   changePageState(val){
-    this.setState({showPage:val})
+    this.setState({showPage:val});
   }
 
   renderSubComponent(){
     switch(this.state.showPage){
       case "UPLOAD":
-        return <FileUpload handler = {this.changePageState}/>;
+        return <FileUpload handler = {this.changePageState} />;
+      case "Dashboard":
+        return <Dashboard handler = {this.changePageState} value="default"/>;
+      /*
       case "SUMMARIZE":
         return <DataSummary/>;
       case "VISUALIZE":
         return <DataVisualization/>;
+      */
     }
   }
 
@@ -49,12 +58,28 @@ class App extends Component {
   }
 
   render() {
-    return (
+    const Component = (
+      <div>
+      <div>
+      <h1> CSE564 : Visualisation : Data Engineer</h1>
+      <a href="http://localhost:3000">
+      <img border="0" alt="Home" src={require("./home_logo.png")} width="60" height="40"></img>
+      </a>
+      </div>
+        <div>
+          {this.renderSubComponent()}
+        </div>
+        </div>
+        );
+    return Component;
+   /*
+    (
       <div className="App">
         <div>
-          <p>Notes: {this.state.notes}</p>
+          <h1> CSE564 : Visualisation : Data Engineer</h1>
         </div>
         <div>
+          
           <button id = {"UPLOAD"} onClick={(e) => this.handleOnClick(e.target.id)}>File UPLOAD</button>
           <button id = {"SUMMARIZE"} onClick={(e) => this.handleOnClick(e.target.id)}>Data Summary</button>
           <button id = {"VISUALIZE"} onClick={(e) => this.handleOnClick(e.target.id)}>Data Visualise</button>
@@ -64,7 +89,8 @@ class App extends Component {
         </div>
       </div>
     );
-  }
+    */
+  };
 }
 
 export default App;

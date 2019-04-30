@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './FileUpload.css'
 
 export default class FileUpload extends Component{
 constructor(props) {
@@ -24,7 +25,7 @@ constructor(props) {
 
     axios.post('http://localhost:5000/upload', data)
       // .then((response) => this.setState({ uploadStatus: true,resMessage : response.data.message, summary:response.data.summary,corr:response.data.corr}))
-      .then(this.props.handler("SUMMARIZE"))
+      .then(this.props.handler("Dashboard"))
       .catch(function (error) {
         console.log(error);
       });
@@ -38,62 +39,11 @@ constructor(props) {
     const summary = this.state.summary
     const corr = this.state.corr
       return (
-      <div>
-          <input type="file" id="file" ref={(ref) => { this.uploadInput = ref; }}/>
-          <button onClick={this.handleUploadImage}>upload</button>
-          {/* <div>
-            <div style={{float:'left',width: 50 + '%',height:100 +"vh",overflow:'scroll'}}>
-                <p>Response from server:</p>
-                <p>{this.state.resMessage}</p>
-                {
-                  Object.keys(summary).map(
-                    function(key){
-                      return (
-                        <div>
-                        <label>{key}</label>
-                        <table>
-                          <tbody>
-                            {
-                              Object.keys(summary[key]).map(
-                                function(k){
-                                  return(
-                                    <tr>
-                                    <td>{k}</td>
-                                    <td key = {key.toString()+"_"+k.toString()}>{summary[key][k]}</td>
-                                    </tr>
-                                  )
-                                }
-                              )
-                              }
-                          </tbody>
-                        </table>
-                        </div>
-                      )
-                    }
-                  )
-              }
-            </div>
-            <div style={{float:'right',width: 50 + '%',overflow:'scroll',height:100 +'vh'}}>
-            <ScrollArea
-            speed={0.8}
-            className="area"
-            contentClassName="content"
-            >
-              <p>Correlation Table</p>
-              {
-                <table>
-                  <tbody>
-                  {  
-                    corr.map( row => <tr>{
-                      row.map(elem => <td>{elem}</td>)
-                    }</tr>)
-                  }
-                  </tbody>
-                </table>
-              }
-              </ScrollArea>
-            </div>
-          </div> */}
+      <div className="Upload-button">
+        <h2>Let's Get started! Upload a csv file</h2>
+          <input className="input-button" type="file" id="file" ref={(ref) => { this.uploadInput = ref; }}/>
+          <br></br>
+          <button className ="submit-button" onClick={this.handleUploadImage}>Upload</button>
       </div>
       )
   }
