@@ -9,7 +9,7 @@ from flask_cors import CORS, cross_origin
 import os
 import Data
 
-UPLOAD_FOLDER = "/Users/gags/Documents/Stony/Sme2/Visualisation/CSE564_Project/"
+UPLOAD_FOLDER = os.getcwd()+"/Uploaded_data/"
 UPLOADED_FILE_NAME = "data.csv"
 ALLOWED_EXTENSIONS = set(['csv'])
 #First of all you have to import it from the flask module:

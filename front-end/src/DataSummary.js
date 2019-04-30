@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import "react-tabs/style/react-tabs.css";
+import Dashboard from './Dashboard';
 
 export default class DataSummary extends Component{
 
@@ -8,7 +11,7 @@ export default class DataSummary extends Component{
         // this.uploadInput = React.createRef();
         this.state = {
             summary : [],
-            corr :[]
+            //corr :[]
         }
       }
       componentDidMount(){
@@ -22,8 +25,9 @@ export default class DataSummary extends Component{
       }
 
       render(){
+        
           const summary = this.state.summary
-          const corr = this.state.corr
+          const corr = this.state.corr 
           return(
             <div>
                 <div style={{float:'left',width: 50 + '%',height:100 +"vh",overflow:'scroll'}}>
@@ -58,20 +62,6 @@ export default class DataSummary extends Component{
                     )
                 }
                 </div>
-                <div style={{float:'right',width: 50 + '%',overflow:'scroll',height:100 +'vh'}}>
-              <p>Correlation Table</p>
-              {
-                <table>
-                  <tbody>
-                  {  
-                    corr.map( row => <tr>{
-                      row.map(elem => <td>{elem}</td>)
-                    }</tr>)
-                  }
-                  </tbody>
-                </table>
-              }
-            </div>
             </div>
           )
       }
