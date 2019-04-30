@@ -66,6 +66,12 @@ def getSelectedColumnData():
     colId = request.args['colId']
     return jsonify({"selected_data":data.get_selected_col_data(colId)}),200
 
+@app.route("/performKMeans", methods=["GET"])
+def performKMeans():
+    data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    k  = request.args['k']
+    return jsonify({"clustered_data":data.performKMeans(k)}),200    
+
 if __name__ == "__main__":
     data = None
     app.run(debug=True)
