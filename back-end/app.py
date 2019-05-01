@@ -81,8 +81,9 @@ def performKMeans():
 def performPCA():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
     nC  = request.args['nC']
-    pca_data,loading_data = data.performPCA(nC)
-    return jsonify({"pca_data":pca_data,"loading_data":loading_data}),200  
+    pca_data, elbow_point, PCA_corr = data.performPCA(nC)
+    return jsonify({"pca_data":pca_data,"elbow_point":elbow_point, "loading_data":PCA_corr}),200
+
 
 @app.route("/checkNulls", methods=["GET"])
 def checkNulls():
