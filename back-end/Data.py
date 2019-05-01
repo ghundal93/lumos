@@ -11,8 +11,11 @@ class Data:
     def summarize_data(self):
         return json.loads(self.df.describe().to_json())
     
+    # def get_corr_matrix(self):
+    #     return self.df.corr().values.tolist()
+
     def get_corr_matrix(self):
-        return self.df.corr().values.tolist()
+        return self.df.corr().to_json(orient='records')
     
     def get_col_names(self):
         return self.df.columns.tolist()
