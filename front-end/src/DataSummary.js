@@ -5,6 +5,8 @@ import "react-tabs/style/react-tabs.css";
 import Dashboard from './Dashboard';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import { Series, DataFrame } from 'pandas-js';
+import './DataSummary.css'
 
 export default class DataSummary extends Component{
 
@@ -13,13 +15,13 @@ export default class DataSummary extends Component{
         // this.uploadInput = React.createRef();
         this.state = {
             summary : [],
-            //corr :[]
+            columns :[]
         }
-        this.getColNames = this.getColNames.bind(this);
       }
 
       componentDidMount(){
         this.getSummary()
+        this.getColumnNames();
       }
 
       getSummary(){
@@ -28,99 +30,92 @@ export default class DataSummary extends Component{
         .then(res => this.setState({ summary:res.summary,corr:res.corr }));        
       }
 
-      getColNames(){
-        const summ = this.state.summary;
-        var cols = [];
-        cols.push(Object.keys(JSON.parse(Object.values(summ)[0])));
-        return cols;
+      getColumnNames(){
+        fetch("http://127.0.0.1:5000/getColNames")
+        .then(data => data.json())
+        .then(res => this.setState({ columns:res.col_names}));   
       }
 
       render(){
-          const summry = this.state.summary;
-          var colNames = this.getColNames();
-          console.log(colNames);
-          //const colNames = Object.values(summary)[0];
-          /*
-          
-          cons rowNames = ['25%', '50%']
-          const rowVals = 
-          console.log(summary);
+          const summary = this.state.summary;
+          var Series = require('pandas-js').Series;
+          var DataFrame = require('pandas-js').DataFrame;
+          var rowNames = this.state.columns;
 
-          const cols = [
-            {
-              Header: "Column",
-              accessor: Object.keys(summary),
-            }
-            ];
-            Object.keys(summary).map(
-              function(key){
-              Object.keys(summary[key]).map(
-              function(k){
-                cols.push({
-                  Header: k.toString(),
-                  accessor: d => d.k
-                });
+          const df = new DataFrame(Object.values(summary));
+          console.log(df.toString());
+          var vals = df.toString().split('\n');
+          var trs = [];
+          for (var i = 0; i < vals.length; i++) {
+              if(i != 1){
+              var temp = vals[i].split("\|");
+              if (i == 0)
+                temp[0] = "Column Name";
+              else
+                temp[0] = rowNames[i-2];
+
+              var tds = [];
+              for(var j = 0; j < temp.length; j++){
+                  tds.push(<td>{temp[j]}</td>);
               }
-              )
-            })
-          console.log(cols);
-          return (<div>
-            Hello
-          </div>
-          );
+
+              if(i == 0)
+                trs.push(<tr  className="header">{tds}</tr>);
+              else if(i%2 == 0)
+                trs.push(<tr className="even">{tds}</tr>);
+              else
+                trs.push(<tr className="odd">{tds}</tr>);
+              }
+          }
           
-*/
-         
           return(
             <div>
               <table>
                 <tr>
-                  <th>
-                    {colNames}
-                  </th>
+                  {trs}
                 </tr>
               </table>
             </div>
-          );
+          )
           /*
           return(
+             
             <div>
                 <div style={{float:'left',width: 50 + '%',height:100 +"vh",overflow:'scroll'}}>
                     <h2> Data Stats </h2>
                     
                     <p>{this.state.resMessage}</p>
+                    <table>
                     {
                     Object.keys(summary).map(
                         function(key){
                         return (
                             <div>
                             <label>{key}</label>
-                            <table>
-                            <tr>
-                              {for()}
-                            </tr>
-                            <tbody>
+                 
+                              <tr>
                                 {
                                 Object.keys(summary[key]).map(
                                     function(k){
                                     return(
-                                        <tr>
+                                      <tbody>
                                         <td>{k}</td>
                                         <td key = {key.toString()+"_"+k.toString()}>{summary[key][k]}</td>
-                                        <br></br>
-                                        </tr>
-                                        
-                                    )
+                                        </tbody>
+                                        )
+
                                     }
                                 )
                                 }
-                            </tbody>
-                            </table>
+                            
+                            </tr>
+                   
                             </div>
                         )
                         }
                     )
                 }
+                </table>
                 </div>
             </div>
           )
