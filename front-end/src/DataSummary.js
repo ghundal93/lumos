@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import Dashboard from './Dashboard';
+import ReactTable from "react-table";
+import "react-table/react-table.css";
 
 export default class DataSummary extends Component{
 
@@ -13,7 +15,9 @@ export default class DataSummary extends Component{
             summary : [],
             //corr :[]
         }
+        this.getColNames = this.getColNames.bind(this);
       }
+
       componentDidMount(){
         this.getSummary()
       }
@@ -24,16 +28,67 @@ export default class DataSummary extends Component{
         .then(res => this.setState({ summary:res.summary,corr:res.corr }));        
       }
 
+      getColNames(){
+        const summ = this.state.summary;
+        var cols = [];
+        cols.push(Object.keys(JSON.parse(Object.values(summ)[0])));
+        return cols;
+      }
+
       render(){
-        
-          const summary = this.state.summary
-          const corr = this.state.corr 
+          const summry = this.state.summary;
+          var colNames = this.getColNames();
+          console.log(colNames);
+          //const colNames = Object.values(summary)[0];
+          /*
+          
+          cons rowNames = ['25%', '50%']
+          const rowVals = 
+          console.log(summary);
+
+          const cols = [
+            {
+              Header: "Column",
+              accessor: Object.keys(summary),
+            }
+            ];
+            Object.keys(summary).map(
+              function(key){
+              Object.keys(summary[key]).map(
+              function(k){
+                cols.push({
+                  Header: k.toString(),
+                  accessor: d => d.k
+                });
+              }
+              )
+            })
+          console.log(cols);
+          return (<div>
+            Hello
+          </div>
+          );
+          
+*/
+         
+          return(
+            <div>
+              <table>
+                <tr>
+                  <th>
+                    {colNames}
+                  </th>
+                </tr>
+              </table>
+            </div>
+          );
+          /*
           return(
             <div>
                 <div style={{float:'left',width: 50 + '%',height:100 +"vh",overflow:'scroll'}}>
-                    <p>Response from server:</p>
+                    <h2> Data Stats </h2>
+                    
                     <p>{this.state.resMessage}</p>
-                    {/* <p>Corr:{this.state.corr}</p> */}
                     {
                     Object.keys(summary).map(
                         function(key){
@@ -41,6 +96,9 @@ export default class DataSummary extends Component{
                             <div>
                             <label>{key}</label>
                             <table>
+                            <tr>
+                              {for()}
+                            </tr>
                             <tbody>
                                 {
                                 Object.keys(summary[key]).map(
@@ -49,7 +107,9 @@ export default class DataSummary extends Component{
                                         <tr>
                                         <td>{k}</td>
                                         <td key = {key.toString()+"_"+k.toString()}>{summary[key][k]}</td>
+                                        <br></br>
                                         </tr>
+                                        
                                     )
                                     }
                                 )
@@ -64,5 +124,6 @@ export default class DataSummary extends Component{
                 </div>
             </div>
           )
+          */
       }
 }

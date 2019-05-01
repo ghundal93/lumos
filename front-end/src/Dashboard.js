@@ -16,7 +16,7 @@ export default class Dashboard extends Component{
     render(){
         const mainElement = (
             <div>
-        <Tabs  forceRenderTabPanel defaultIndex={0}
+        <Tabs  defaultIndex={0}
         id='main_tasks'>
 
         <TabList>
@@ -38,7 +38,7 @@ export default class Dashboard extends Component{
           <Tab
           type = "button" 
           id = "VISUALIZE"
-          onClick={(e) => this.handleOnClick(e.target.id)}>
+          >
           Visualise
           </Tab>
          </TabList>
@@ -71,30 +71,12 @@ export default class Dashboard extends Component{
                 </TabList>
             </Tabs>
           </TabPanel>
+          <TabPanel>
+              <DataVisualization/>
+          </TabPanel>
         </Tabs>
         </div>
         );
         return mainElement;
-        /*
-        <TabPanel>
-            <Tabs>
-              <TabList>
-                <Tab>Correlations</Tab>
-                <Tab 
-                  id = {"SUMMARIZE"} 
-                  onClick={(e) => this.handleOnClick(e.target.id)}>
-                    Data Summary
-                </Tab>
-              </TabList>
-            </Tabs>
-          </TabPanel>
-          <TabPanel>
-            <Tabs>
-                <TabList>
-                  <Tab>Null Vals</Tab>
-                  <Tab>outLiers</Tab>
-                </TabList>
-            </Tabs>
-          </TabPanel>*/
     }
 }
