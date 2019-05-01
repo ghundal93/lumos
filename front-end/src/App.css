@@ -51,6 +51,24 @@
   height: 5px;
 }
 
+.odd{
+  background-color: azure;
+  border-color: black;
+  font-size: smaller
+}
+
+.even{
+  background-color: wheat;
+  border-color: black;
+  font-size: smaller
+}
+
+.header-row {
+  background-color: green;
+  border-color: black;
+  font-size: smaller
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,0 +1,18 @@
+.header{
+    background-color: yellowgreen;
+    border-color: black;
+    font-size: small;
+    font-weight: bold
+}
+
+.odd{
+    background-color: azure;
+    border-color: black;
+    font-size: smaller
+}
+
+.even{
+    background-color: wheat;
+    border-color: black;
+    font-size: smaller
+}

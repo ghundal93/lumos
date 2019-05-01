@@ -61,7 +61,7 @@ export default class Dashboard extends Component{
                 <Tab>Correlations</Tab>
               </TabList>
               <TabPanel id="tab_panel_datasummary">
-                <DataSummary />
+                <DataSummary/>
               </TabPanel>
               <TabPanel id = "tab_panel_correlations">
                 <Correlation/>
