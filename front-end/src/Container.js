@@ -21,7 +21,6 @@ export default class Container extends Component{
         else
             draw(this.props)
     }
-
     render(){
         return (
             <div className="container-div"/>

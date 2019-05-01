@@ -47,9 +47,10 @@ class App extends Component {
       /*
       case "SUMMARIZE":
         return <DataSummary/>;
+        */
       case "VISUALIZE":
         return <DataVisualization/>;
-      */
+      
     }
   }
 
