@@ -5,27 +5,30 @@ export default class DimReduction extends Component {
     
     constructor(){
         super()
-        this.state = {pca_data:{},loading_data:{}}
+        this.state = {pca_data:{},loading_data:{}, elbow:0}
       }
 
     componentWillMount() {
-        this.getDimReducedData()
+        this.getDimReducedData()    
     }
 
     getDimReducedData(){
-        fetch("http://127.0.0.1:5000/performPCA?nC=2")
+        fetch("http://127.0.0.1:5000/performPCA?nC=5")
         .then(data => data.json())
-        .then(res => this.setState({ pca_data:JSON.parse(res.pca_data),loading_data:JSON.parse(res.loading_data)}));   
+        .then(res => this.setState({ pca_data:res.pca_data, elbow_point: res.elbow_point})); 
+            //loading_data:JSON.parse(res.loading_data)}));   
     }
 
     render(){
-        console.log("loading data",this.state.loading_data);
+        console.log("pca data",this.state.pca_data);
+        console.log("elbow point ", this.state.elbow_point);
         return(
             <div className="canvas">
-                <Container data={this.state.pca_data} toDraw="SCATTERPLOT" xLabel = "PC0" yLabel = "PC1" titleGraph="ScatterPlot"/>
-                <Container data={this.state.loading_data} xLabel = "Feature" yLabel = "Significance" titleGraph="Significance Graph" toDraw="LINECHART"/>
+                <Container data={this.state.pca_data}  elbow={this.state.elbow} xLabel = "Feature" yLabel = "Significance" titleGraph="Significance Graph" toDraw="LINECHART"/>
             </div>
         )
+        //                <Container data={this.state.pca_data} elbow={this.state.elbow} toDraw="SCATTERPLOT" xLabel = "PC0" yLabel = "PC1" titleGraph="ScatterPlot"/>
+
     }
 
 }
