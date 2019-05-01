@@ -13,19 +13,26 @@ export default class DataSummary extends Component{
         // this.uploadInput = React.createRef();
         this.state = {
             summary : [],
-            //corr :[]
+            cols:[]
         }
         this.getColNames = this.getColNames.bind(this);
       }
 
       componentDidMount(){
         this.getSummary()
+        this.getColumns()
       }
 
       getSummary(){
         fetch("http://127.0.0.1:5000/getSummary")
         .then(data => data.json())
-        .then(res => this.setState({ summary:res.summary,corr:res.corr }));        
+        .then(res => this.setState({ summary:JSON.parse(res.summary)}));        
+      }
+
+      getColumns(){
+        fetch("http://127.0.0.1:5000/getColNames")
+        .then(data => data.json())
+        .then(res => this.setState({ cols:res.col_names}));          
       }
 
       getColNames(){
@@ -120,10 +127,5 @@ export default class DataSummary extends Component{
                         )
                         }
                     )
-                }
-                </div>
-            </div>
-          )
-          */
-      }
+                    */}
 }
