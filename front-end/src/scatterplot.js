@@ -4,12 +4,12 @@ import './App.css'
 
 const drawScatterPlot = (props) => {
     var obj = props.data
-    console.log("inside scatterplot obj:",obj)
+    //console.log("inside scatterplot obj:",obj)
     var data = []
     Object.keys(obj).map(function (key) {
         data.push(obj[key])
       });
-    console.log("inside scatterplot:",data)
+    //console.log("inside scatterplot:",data)
     var margin = {top: 50, right: 60, bottom: 50, left: 50}
     // width = 600 - margin.left - margin.right,
     // height = 270 - margin.top - margin.bottom;
@@ -58,11 +58,11 @@ const drawScatterPlot = (props) => {
         x_val.push(parseFloat(val["Column_0"]));
         y_val.push(parseFloat(val["Column_1"]));
     }
-    console.log("x_val:",x_val);
-    console.log(y_val);
+    //console.log("x_val:",x_val);
+    //console.log(y_val);
     var dlist = d3.entries(data);
     //var dlist = data;
-    console.log("DLIST:",dlist);
+    //console.log("DLIST:",dlist);
     // Scale the range of the data
     x.domain([d3.min(x_val),d3.max(x_val)]);
     y.domain([d3.min(y_val), d3.max(y_val)]);

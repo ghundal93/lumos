@@ -25,10 +25,14 @@ class Data:
     def get_selected_col_data(self,colId):
         return self.df.iloc[:,int(colId)].tolist()
 
-    # def performKMeans(self,k):
-    #     Kmean = KMeans(n_clusters=int(k))
-    #     Kmean.fit(self.df)
-    #     Kmean.cluster_centers_
+    def performKMeans(self,k):
+        Kmean = KMeans(n_clusters=int(k))
+        Kmean.fit(self.df)
+        Kmean.cluster_centers_
+        return "fd"
+
+    def checkNulls(self):
+        return self.df.isna().any().to_json(orient='records')
 
     def performPCA(self,nC):
         dim_reduced_data = PCA(n_components=int(nC)).fit_transform(self.df)

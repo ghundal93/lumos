@@ -19,6 +19,7 @@ export default class DimReduction extends Component {
     }
 
     render(){
+        console.log("loading data",this.state.loading_data);
         return(
             <div className="canvas">
                 <Container data={this.state.pca_data} toDraw="SCATTERPLOT"/>
