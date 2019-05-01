@@ -66,11 +66,18 @@ def getSelectedColumnData():
     colId = request.args['colId']
     return jsonify({"selected_data":data.get_selected_col_data(colId)}),200
 
-@app.route("/performKMeans", methods=["GET"])
-def performKMeans():
+# @app.route("/performKMeans", methods=["GET"])
+# def performKMeans():
+#     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+#     k  = request.args['k']
+#     return jsonify({"clustered_data":data.performKMeans(k)}),200 
+
+@app.route("/performPCA", methods=["GET"])
+def performPCA():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
-    k  = request.args['k']
-    return jsonify({"clustered_data":data.performKMeans(k)}),200    
+    nC  = request.args['nC']
+    pca_data,loading_data = data.performPCA(nC)
+    return jsonify({"pca_data":pca_data,"loading_data":loading_data}),200    
 
 if __name__ == "__main__":
     data = None

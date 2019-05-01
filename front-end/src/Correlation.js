@@ -27,7 +27,15 @@ export default class Correlation extends Component{
       render(){
         
           const summary = this.state.summary
-          const corr = this.state.corr 
+          const corr = this.state.corr
+          console.log(corr)
+          console.log(typeof(corr))
+          var ary2D = []
+          Object.keys(corr).map(function (key) {
+            ary2D.push([corr[key]])
+          });
+          console.log(ary2D);
+          console.log(typeof(ary2D));
           return(
             <div>
                 <div>

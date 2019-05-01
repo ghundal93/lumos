@@ -4,7 +4,7 @@ import './App.css';
 //import './FileUpload.js';
 import DataSummary from './DataSummary.js';
 import DataVisualization from './DataVisualization.js';
-import FileUpload from './FileUpload.js';
+import DimReduction from './DimReduction.js';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import Correlation from './Correlation';
@@ -16,7 +16,7 @@ export default class Dashboard extends Component{
     render(){
         const mainElement = (
             <div>
-        <Tabs  forceRenderTabPanel defaultIndex={0}
+        <Tabs defaultIndex={0}
         id='main_tasks'>
 
         <TabList>
@@ -37,11 +37,16 @@ export default class Dashboard extends Component{
 
           <Tab
           type = "button" 
-          id = "VISUALIZE"
-          onClick={(e) => this.handleOnClick(e.target.id)}>
+          id = "VISUALIZE">
           Visualise
           </Tab>
-         </TabList>
+
+          <Tab
+          type = "button" 
+          id = "dim_reduction">
+          Dimension Reduction
+          </Tab>
+        </TabList>
 
           <TabPanel id="tab_panel_data_summary_titles">
             <Tabs forceRenderTabPanel>
@@ -70,6 +75,21 @@ export default class Dashboard extends Component{
                   <Tab>outLiers</Tab>
                 </TabList>
             </Tabs>
+          </TabPanel>
+
+          <TabPanel id="tab_panel_data_trimming">
+            <Tabs>
+                <TabList>
+                  <Tab>TODO</Tab>
+                </TabList>
+            </Tabs>
+          </TabPanel>
+
+          <TabPanel id="tab_panel_data_visualisation">
+            <DataVisualization/>
+          </TabPanel>
+          <TabPanel id="tab_panel_data_visualisation">
+            <DimReduction/>
           </TabPanel>
         </Tabs>
         </div>
