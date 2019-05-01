@@ -22,3 +22,10 @@
     margin: 4px 2px;
     cursor: pointer;
   }
+
+  .container {
+    height: 100vh; /* Magic here */
+    display: inherit;
+    justify-content: center;
+    align-items: center;
+  }

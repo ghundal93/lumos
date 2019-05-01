@@ -31,8 +31,8 @@ export default class Dashboard extends Component{
           </Tab>
 
           <Tab
-          type = "button" id="data_trimming">
-          Data Trimming
+          type = "button" id="data_clustering">
+          Data Clustering
           </Tab>
 
           <Tab

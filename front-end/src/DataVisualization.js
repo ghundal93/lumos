@@ -42,9 +42,14 @@ class DataVisualization extends Component {
     .then(res => this.setState({ selected_data:res.selected_data,selected_col:colId}));       
   }
 
-  onOptionChange(e){
+  onColBoxChange(e){
     var colId = e.target.value;
     this.getSelectedColumnData(colId)
+  }
+
+  onTypeBoxChange(e){
+    console.log("TYPE" , e.target.value)
+    this.setState({shape:e.target.value})
   }
 
   onInputChange(e) {
@@ -75,29 +80,35 @@ class DataVisualization extends Component {
       console.log("selected_col",this.state.selected_col)
     return (
       <div className="App">
-        <p className="heading">Visualisation: Assignment 1</p>
-        <p className = "select-column">Select a column:</p>
-        <select className="select-box" id="select_box" value={this.state.selected_col} onChange={this.onOptionChange.bind(this)} >
-        {this.state.cols.map((col,id) => {
-            return <option key={id} id={id} value={id}>{col}</option>
-        })}
-        </select>
-        <div className="canvas">
+        <div className = "selectbox-container">
+          <div style={{float:'left',width: 50 + '%'}}>
+            <p className = "select-column">Select a column:</p>
+            <select className="select-box" id="select_col_box" value={this.state.selected_col} onChange={this.onColBoxChange.bind(this)} >
+            {this.state.cols.map((col,id) => {
+                return <option key={id} id={id} value={id}>{col}</option>
+            })}
+            </select>
+          </div>
+          <div style={{float:'right',width: 50 + '%'}}>
+            <p className = "select-column">Select chart type:</p>
+            <select className="select-box" id="select_type_box" value={this.state.shape} onChange={this.onTypeBoxChange.bind(this)} >
+              <option key="BAR" id="BAR" value="BAR">BAR CHART</option>
+              <option key="CIRCLE" id="CIRCLE" value="CIRCLE">PIE CHART</option>
+            </select>
+          </div>
+        </div>
+        <div className="center-align svg">
+        <div className="canvas inline-style">
           <Container onComponentClicked={this.onChartClick.bind(this)} varData={this.state.selected_data} nBins={this.state.nBins} shape = {this.state.shape}></Container>
         </div>
-        {/* <div className="slider">
-        <label >Number of Bins </label>
-        <input type="range" id="customRange" min="3" value={this.state.nBins} step = "1" max="20" onChange={this.onInputChange.bind(this)}/>
-        </div> */}
-        <br/>
+        </div>
+        <div>
         <RangeSliderContainer color="#2B7B65">
           <div className="slider">
           <InputRange maxValue={20} minValue={3} value={this.state.nBins} onChange={value => this.onSliderChange(value)}/>
           </div><br/>
         </RangeSliderContainer>
         <label >Number of Bins </label>
-        <div>
-          <button onClick={this.onButtonClick.bind(this)}>Show Force Directed</button>
         </div>
       </div>
     );
