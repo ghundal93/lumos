@@ -53,7 +53,12 @@ def upload():
 @app.route("/getSummary",methods=["GET"])
 def getSummary():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
-    return jsonify({"summary":data.summarize_data(),"corr":data.get_corr_matrix()}),200
+    return jsonify({"summary":data.summarize_data()}),200
+
+@app.route("/getCorr",methods=["GET"])
+def getCorr():
+    data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    return jsonify({"corr":data.get_corr_matrix()}),200
 
 @app.route("/getColNames",methods=["GET"])
 def getColNames():
