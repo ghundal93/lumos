@@ -122,7 +122,7 @@ function drawBarChart(binArray, margin,barSep,nBins,w,h,onComponentClicked,binRa
 // Pie Chart
 function drawPieChart(binArray,nBins,width,height,margin,onComponentClicked,binRange){
     d3.select(".canvas>*").remove();
-    var radius = width/3;
+    var radius = width/4;
 
     var color = d3.scaleOrdinal(["#ABA847","#9AA448","#89A14B","#799C4E","#6A9852","#5B9357","#4D8D5B","#40885F","#358262","#2B7B65","#237566","#1F6E67","#1E6867","#206166","#235A64","#285360","#2C4C5C","#2F4557","#323E51","#34374A"]);
 
@@ -244,8 +244,8 @@ const draw = (props) => {
     var data = props.varData;
     const margin = 50
     var nBins = props.nBins;
-    const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - margin
-    const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - margin
+    const w = Math.min(document.documentElement.clientWidth, window.innerWidth || 0) - margin
+    const h = Math.min(document.documentElement.clientHeight, window.innerHeight || 0) - margin
     var max_d = Number.MIN_SAFE_INTEGER;
     var min_d = Number.MAX_SAFE_INTEGER;
 
@@ -290,7 +290,7 @@ const draw = (props) => {
     }
     console.log("BINRANGE:",binRange)
     if(props.shape == "BAR")
-        drawBarChart(binArray,margin,4*margin,nBins,w/2,h-h/3,props.onComponentClicked,binRange)
+        drawBarChart(binArray,margin,4*margin,nBins,w/2,h-h/4,props.onComponentClicked,binRange)
     else if(props.shape == "CIRCLE")
         drawPieChart(binArray,nBins,w/2,h-h/3,margin,props.onComponentClicked,binRange)
     else

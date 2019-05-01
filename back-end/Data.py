@@ -12,12 +12,12 @@ class Data:
         self.df = pd.read_csv(os.path.join(path, filename))
 
     def summarize_data(self):
-        #return json.loads(self.df.describe().to_json())
-        return self.df.describe().to_json(orient='columns')
+        return json.loads(self.df.describe().to_json())
+        #return self.df.describe().to_json(orient='columns')
         #return self.df.describe().values.tolist()
     
     def get_corr_matrix(self):
-        return self.df.corr().values.tolist()
+        return self.df.corr().to_json(orient='records')
     
     def get_col_names(self):
         return self.df.columns.tolist()
