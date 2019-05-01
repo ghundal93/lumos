@@ -15,7 +15,7 @@ export default class DimReduction extends Component {
     getDimReducedData(){
         fetch("http://127.0.0.1:5000/performPCA?nC=5")
         .then(data => data.json())
-        .then(res => this.setState({ pca_data:res.pca_data, elbow_point: res.elbow_point})); 
+        .then(res => this.setState({ pca_data:res.pca_data, elbow_point: res.elbow_point,loading_data:res.loading_data})); 
             //loading_data:JSON.parse(res.loading_data)}));   
     }
 
@@ -24,11 +24,10 @@ export default class DimReduction extends Component {
         console.log("elbow point ", this.state.elbow_point);
         return(
             <div className="canvas">
-                <Container data={this.state.pca_data}  elbow={this.state.elbow} xLabel = "Feature" yLabel = "Significance" titleGraph="Significance Graph" toDraw="LINECHART"/>
+              <Container data={this.state.loading_data} toDraw="SCATTERPLOT" xLabel = "PC0" yLabel = "PC1" titleGraph="ScatterPlot"/>
+                <Container data={this.state.pca_data}  elbow={this.state.elbow_point} xLabel = "Feature" yLabel = "Significance" titleGraph="Significance Graph" toDraw="LINECHART"/>
             </div>
         )
-        //                <Container data={this.state.pca_data} elbow={this.state.elbow} toDraw="SCATTERPLOT" xLabel = "PC0" yLabel = "PC1" titleGraph="ScatterPlot"/>
-
     }
 
 }
