@@ -53,7 +53,12 @@ def upload():
 @app.route("/getSummary",methods=["GET"])
 def getSummary():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
-    return jsonify({"summary":data.summarize_data(),"corr":data.get_corr_matrix()}),200
+    return jsonify({"summary":data.summarize_data()}),200
+
+@app.route("/getCorr",methods=["GET"])
+def getCorr():
+    data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    return jsonify({"corr":data.get_corr_matrix()}),200
 
 @app.route("/getColNames",methods=["GET"])
 def getColNames():
@@ -65,6 +70,19 @@ def getSelectedColumnData():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
     colId = request.args['colId']
     return jsonify({"selected_data":data.get_selected_col_data(colId)}),200
+
+# @app.route("/performKMeans", methods=["GET"])
+# def performKMeans():
+#     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+#     k  = request.args['k']
+#     return jsonify({"clustered_data":data.performKMeans(k)}),200 
+
+@app.route("/performPCA", methods=["GET"])
+def performPCA():
+    data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    nC  = request.args['nC']
+    pca_data,loading_data = data.performPCA(nC)
+    return jsonify({"pca_data":pca_data,"loading_data":loading_data}),200    
 
 if __name__ == "__main__":
     data = None

@@ -27,8 +27,9 @@ export default class DataSummary extends Component{
       getSummary(){
         fetch("http://127.0.0.1:5000/getSummary")
         .then(data => data.json())
-        .then(res => this.setState({ summary:res.summary,corr:res.corr }));        
+        .then(res => this.setState({ summary:JSON.parse(res.summary)}));        
       }
+
 
       getColumnNames(){
         fetch("http://127.0.0.1:5000/getColNames")
