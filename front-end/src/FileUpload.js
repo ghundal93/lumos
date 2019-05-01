@@ -29,19 +29,11 @@ constructor(props) {
 
   render(){
       return (
-      <div style={{display: 'flex',justifyContent: 'center',height: 50+'vh'}} >
-        <div>
-          <div class="col-lg-1">
-            <h2>Let's Get started! Upload a csv file</h2>
-          </div>
-          <div class="col-lg-1 ">
-            <input className="input-button" type="file" id="file" ref={(ref) => { this.uploadInput = ref; }}/>
-            <br></br>
-          </div>
-          <div class="col-lg-1">
-            <button className ="submit-button" onClick={this.handleUploadImage}>Upload</button>
-          </div>
-        </div>
+      <div className="Upload-button">
+        <h2>Let's Get started! Upload a csv file</h2>
+          <input className="input-button" type="file" id="file" ref={(ref) => { this.uploadInput = ref; }}/>
+          <br></br>
+          <button className ="submit-button" onClick={this.handleUploadImage}>Upload</button>
       </div>
       )
   }

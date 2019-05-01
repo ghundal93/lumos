@@ -3,6 +3,7 @@ import './App.css'
 
 const drawLineChart = (props) => {
     var data = props.data;
+    console.log("inside linechart:",data)
     var xLabel = props.xLabel;
     var yLabel = props.yLabel;
     var titleGraph = props.titleGraph
@@ -60,7 +61,7 @@ const drawLineChart = (props) => {
     }
 
     console.log("x_val:",x_val);
-    console.log(y_val);
+    console.log("x_val:",y_val);
     var dlist = d3.entries(data);
     console.log("DLIST:",dlist);
     console.log("xdomain",[d3.min(x_val),d3.max(x_val)])

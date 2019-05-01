@@ -81,7 +81,7 @@ class DataVisualization extends Component {
     return (
       <div className="App">
         <div className = "selectbox-container">
-          <div style={{float:'left',width: 50 + '%'}}>
+          <div style={{float:'right',width: 50 + '%'}}>
             <p className = "select-column">Select a column:</p>
             <select className="select-box" id="select_col_box" value={this.state.selected_col} onChange={this.onColBoxChange.bind(this)} >
             {this.state.cols.map((col,id) => {
@@ -89,7 +89,7 @@ class DataVisualization extends Component {
             })}
             </select>
           </div>
-          <div style={{float:'right',width: 50 + '%'}}>
+          <div style={{float:'left',width: 50 + '%'}}>
             <p className = "select-column">Select chart type:</p>
             <select className="select-box" id="select_type_box" value={this.state.shape} onChange={this.onTypeBoxChange.bind(this)} >
               <option key="BAR" id="BAR" value="BAR">BAR CHART</option>

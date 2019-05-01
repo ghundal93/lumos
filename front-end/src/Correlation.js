@@ -37,7 +37,6 @@ export default class Correlation extends Component{
         
           const summary = this.state.summary;
           const corr = this.state.corr;
-          console.log("BAHAR:",corr)
           return(
             <div>
                 <p>Correlation Table</p>
