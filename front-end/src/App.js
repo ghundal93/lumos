@@ -21,6 +21,7 @@ class App extends Component {
     this.getDataFromBackend = this.getDataFromBackend.bind(this)
     this.renderSubComponent = this.renderSubComponent.bind(this)
     this.handleOnClick = this.handleOnClick.bind(this)
+    this.handleImageClick = this.handleImageClick.bind(this)
   }
 
   componentDidMount(){
@@ -58,14 +59,16 @@ class App extends Component {
     this.setState({showPage:val})
   }
 
+  handleImageClick(){
+    this.setState({showPage:"UPLOAD"})
+  }
+
   render() {
     const Component = (
       <div>
       <div>
       <h1> CSE564 : Visualisation : Data Engineer</h1>
-      <a href="http://localhost:3000">
-      <img border="0" alt="Home" src={require("./home_logo.png")} width="60" height="40"></img>
-      </a>
+      <img border="0" alt="Home" src={require("./home_logo.png")} width="60" height="40" onClick={this.handleImageClick} ></img>
       </div>
         <div>
           {this.renderSubComponent()}
