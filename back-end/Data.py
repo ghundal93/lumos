@@ -16,6 +16,9 @@ class Data:
         #return self.df.describe().to_json(orient='columns')
         #return self.df.describe().values.tolist()
     
+    # def get_corr_matrix(self):
+    #     return self.df.corr().values.tolist()
+
     def get_corr_matrix(self):
         return self.df.corr().to_json(orient='records')
     
