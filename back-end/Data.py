@@ -32,7 +32,7 @@ class Data:
         return "fd"
 
     def checkNulls(self):
-        return self.df.isna().any().to_json(orient='records')
+        return self.df.isna().sum().to_json(orient='records')
 
     def performPCA(self,nC):
         dim_reduced_data = PCA(n_components=int(nC)).fit_transform(self.df)

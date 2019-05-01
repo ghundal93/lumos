@@ -38,15 +38,29 @@ export default class DataCleaningNulls extends Component{
               <div>
                   <table>
                       <tbody>
+                          <tr className = "header">
+                              <td>Column Name</td>
+                              <td>Null Count</td>
+                          </tr>
                           {
                               Object.keys(data).map(
-                                  function(key){
-                                      return (
-                                      <tr>
-                                          <td>{cols[key]}</td>
-                                          <td>{data[key].toString()}</td>
-                                      </tr>
-                                      )
+                                  function(key,i){
+                                      if(i%2 == 0){
+                                        return (
+                                        <tr className ="even">
+                                            <td>{cols[key]}</td>
+                                            <td>{data[key].toString()}</td>
+                                        </tr>
+                                        )
+                                      }
+                                      else{
+                                        return (
+                                            <tr className ="odd">
+                                                <td>{cols[key]}</td>
+                                                <td>{data[key].toString()}</td>
+                                            </tr>
+                                        )
+                                      }
                                   }
                               )
                           }
