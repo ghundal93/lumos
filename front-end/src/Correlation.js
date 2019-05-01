@@ -22,9 +22,9 @@ export default class Correlation extends Component{
       }
 
       getSummary(){
-        fetch("http://127.0.0.1:5000/getSummary")
+        fetch("http://127.0.0.1:5000/getCorr")
         .then(data => data.json())
-        .then(res => this.setState({ summary:res.summary,corr:JSON.parse(res.corr) }));        
+        .then(res => this.setState({corr:JSON.parse(res.corr) }));        
       }
 
       getColumnNames(){
@@ -43,7 +43,7 @@ export default class Correlation extends Component{
                 <p>Correlation Table</p>
                 <div className="legend"  ></div>
                 <div className="canvas" >
-                <Container chartType="corr" colNames={this.state.columns} varData={this.state.corr}></Container>
+                <Container colNames={this.state.columns} varData={this.state.corr} toDraw="CORR"></Container>
                 </div>
             </div>
 

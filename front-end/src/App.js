@@ -5,8 +5,6 @@ import './FileUpload.js';
 import DataSummary from './DataSummary.js';
 import DataVisualization from './DataVisualization.js';
 import FileUpload from './FileUpload.js';
-//import Tabs from 'react-bootstrap/Tabs';
-//import Tab from 'react-bootstrap/Tab';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import Dashboard from './Dashboard';
@@ -44,12 +42,6 @@ class App extends Component {
         return <FileUpload handler = {this.changePageState} />;
       case "Dashboard":
         return <Dashboard handler = {this.changePageState} value="default"/>;
-      /*
-      case "SUMMARIZE":
-        return <DataSummary/>;
-        */
-      case "VISUALIZE":
-        return <DataVisualization/>;
       
     }
   }
@@ -76,24 +68,6 @@ class App extends Component {
         </div>
         );
     return Component;
-   /*
-    (
-      <div className="App">
-        <div>
-          <h1> CSE564 : Visualisation : Data Engineer</h1>
-        </div>
-        <div>
-          
-          <button id = {"UPLOAD"} onClick={(e) => this.handleOnClick(e.target.id)}>File UPLOAD</button>
-          <button id = {"SUMMARIZE"} onClick={(e) => this.handleOnClick(e.target.id)}>Data Summary</button>
-          <button id = {"VISUALIZE"} onClick={(e) => this.handleOnClick(e.target.id)}>Data Visualise</button>
-        </div>
-        <div>
-          {this.renderSubComponent()}
-        </div>
-      </div>
-    );
-    */
   };
 }
 
