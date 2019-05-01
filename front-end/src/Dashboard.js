@@ -4,10 +4,12 @@ import './App.css';
 //import './FileUpload.js';
 import DataSummary from './DataSummary.js';
 import DataVisualization from './DataVisualization.js';
+import DataClustering from './DataClustering.js';
 import DimReduction from './DimReduction.js';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import Correlation from './Correlation';
+import DataCleaningNulls from './DataCleaningNulls';
 
 
 export default class Dashboard extends Component{
@@ -31,8 +33,8 @@ export default class Dashboard extends Component{
           </Tab>
 
           <Tab
-          type = "button" id="data_trimming">
-          Data Trimming
+          type = "button" id="data_clustering">
+          Data Clustering
           </Tab>
 
           <Tab
@@ -59,7 +61,7 @@ export default class Dashboard extends Component{
                 <Tab>Correlations</Tab>
               </TabList>
               <TabPanel id="tab_panel_datasummary">
-                <DataSummary />
+                <DataSummary/>
               </TabPanel>
               <TabPanel id = "tab_panel_correlations">
                 <Correlation/>
@@ -75,15 +77,14 @@ export default class Dashboard extends Component{
                   <Tab>Null Vals</Tab>
                   <Tab>outLiers</Tab>
                 </TabList>
+                <TabPanel id="tab_panel_data_cleaning_null">
+                <DataCleaningNulls />
+              </TabPanel>
             </Tabs>
           </TabPanel>
 
-          <TabPanel id="tab_panel_data_trimming">
-            <Tabs>
-                <TabList>
-                  <Tab>TODO</Tab>
-                </TabList>
-            </Tabs>
+          <TabPanel id="tab_panel_data_clustering">
+            <DataClustering/>
           </TabPanel>
 
           <TabPanel id="tab_panel_data_visualisation">

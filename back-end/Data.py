@@ -12,8 +12,8 @@ class Data:
         self.df = pd.read_csv(os.path.join(path, filename))
 
     def summarize_data(self):
-        #return json.loads(self.df.describe().to_json())
-        return self.df.describe().to_json(orient='columns')
+        return json.loads(self.df.describe().to_json())
+        #return self.df.describe().to_json(orient='columns')
         #return self.df.describe().values.tolist()
     
     # def get_corr_matrix(self):
@@ -28,10 +28,14 @@ class Data:
     def get_selected_col_data(self,colId):
         return self.df.iloc[:,int(colId)].tolist()
 
-    # def performKMeans(self,k):
-    #     Kmean = KMeans(n_clusters=int(k))
-    #     Kmean.fit(self.df)
-    #     Kmean.cluster_centers_
+    def performKMeans(self,k):
+        Kmean = KMeans(n_clusters=int(k))
+        Kmean.fit(self.df)
+        Kmean.cluster_centers_
+        return "fd"
+
+    def checkNulls(self):
+        return self.df.isna().sum().to_json(orient='records')
 
     def performPCA(self,nC):
         dim_reduced_data = PCA(n_components=int(nC)).fit_transform(self.df)

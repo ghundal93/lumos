@@ -3,8 +3,10 @@ import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import Dashboard from './Dashboard';
-import ReactTable from "react-table";
-import "react-table/react-table.css";
+
+//import ReactTable from "react-table";
+//import "react-table/react-table.css";
+
 import { Series, DataFrame } from 'pandas-js';
 import './DataSummary.css'
 
@@ -27,7 +29,7 @@ export default class DataSummary extends Component{
       getSummary(){
         fetch("http://127.0.0.1:5000/getSummary")
         .then(data => data.json())
-        .then(res => this.setState({ summary:JSON.parse(res.summary)}));        
+        .then(res => this.setState({ summary:res.summary}));        
       }
 
 
@@ -59,7 +61,6 @@ export default class DataSummary extends Component{
               for(var j = 0; j < temp.length; j++){
                   tds.push(<td>{temp[j]}</td>);
               }
-
               if(i == 0)
                 trs.push(<tr  className="header">{tds}</tr>);
               else if(i%2 == 0)
