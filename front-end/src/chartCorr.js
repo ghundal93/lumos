@@ -26,7 +26,7 @@ const draw_corr = (props) => {
 };
 
 function Matrix(data, cols){
-    var margin = {top: 50, right: 50, bottom: 150, left: 150},
+    var margin = {top: 30, right: 30, bottom: 150, left: 150},
 	    width = 600,
 	    height = 600,
 	    labelsData = cols,
@@ -72,7 +72,7 @@ function Matrix(data, cols){
     .domain([minValue,maxValue])
     .range([startColor, endColor]);
 
-    console.log("color map example "+colorMap(minValue));
+    // console.log("color map example "+colorMap(minValue));
 
 	var row = svg.selectAll(".row")
 	    .data(data)

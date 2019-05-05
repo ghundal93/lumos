@@ -4,6 +4,7 @@ import drawScatterPlot from './scatterplot.js';
 import drawLineChart from './linechart.js';
 import draw_corr from './chartCorr.js';
 
+
 export default class Container extends Component{
     componentDidMount(){
         if(this.props.toDraw == "SCATTERPLOT")

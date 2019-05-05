@@ -7,6 +7,7 @@ import numpy as np
 from flask import jsonify
 from kneed import DataGenerator, KneeLocator
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.cluster import KMeans
 
 class Data:
     df = None 
@@ -29,12 +30,6 @@ class Data:
     
     def get_selected_col_data(self,colId):
         return self.df.iloc[:,int(colId)].tolist()
-
-    def performKMeans(self,k):
-        Kmean = KMeans(n_clusters=int(k))
-        Kmean.fit(self.df)
-        Kmean.cluster_centers_
-        return "fd"
 
     def checkNulls(self):
         return self.df.isna().sum().to_json(orient='records')
@@ -61,17 +56,10 @@ class Data:
         #Code generating data for scree plot
         result_dict, elbow_point = self.draw_scree_plot(self.df, int(nC))
         print("result data: ", result_dict," elbow point : ",elbow_point)
-        # scree_data = json.dumps(result_dict, indent=2)
 
         #Code to get PC1 and PC2 correlation
         PC_data = self.PCA_2_PC_scatter(self.df)
         print("PC_data: ", PC_data)
-        # o_df = pd.DataFrame()
-        # for i in range(0,2):
-        #     o_df["Column_"+str(i)] = PC_data[:,i]
-
-        #Return all data
-        #data = {'scree_data'  : result_dict, 'elbow_point':elbow_point, 'PC_data' : PC_data}
 
         return result_dict, elbow_point, PC_data
 
@@ -117,6 +105,39 @@ class Data:
         pca = PCA(n_components=pc_count)
         dataset = pca.fit_transform(data_df)
         return pca, dataset
+    
+    def performKMeans(self, k):
+        data_2D = PCA(n_components=2).fit(self.df).transform(self.df)
+        kmeans = KMeans(n_clusters=int(k), random_state=111)
+        kmeans.fit(self.df)
+        result_dict_1 = {}
+        label_list = list(map(int, kmeans.labels_))
+        for i in range(data_2D.shape[0]):
+            result_dict_1[float(data_2D[i, 0])] = float(data_2D[i,1])
+        result_dict_2 = {}
+        for i in range(data_2D.shape[0]):
+            result_dict_2[float(data_2D[i, 0])] = label_list[i]
+        # print("clustering result dict ",result_dict)
+        return result_dict_1 , result_dict_2
+    
+    def kmeans_screePlot(self):
+        dist = []
+        K = range(2, 26)
+        
+        for k in K:
+            k_mean = KMeans(n_clusters = k).fit(self.df)
+            #print("for k",k, " inertia ",k_mean.inertia_)
+            dist.append(k_mean.inertia_)
+
+        kn = KneeLocator(K, dist, curve='convex', direction='decreasing')
+
+        result_dict = {}
+        for i in K:
+            result_dict[i] = dist[i-2]
+
+        return result_dict, kn.knee
+
+
 
 
 

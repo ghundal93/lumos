@@ -1,118 +1,19 @@
 import * as d3 from 'd3';
 import './App.css'
+import './linechart.css'
 
-// const drawLineChart = (props) => {
-//     var data = props.data;
-//     console.log("inside linechart:",data)
-//     var xLabel = props.xLabel;
-//     var yLabel = props.yLabel;
-//     var titleGraph = props.titleGraph
-//     var margin = {top: 30, right: 20, bottom: 60, left: 50},
-//         width = 600 - margin.left - margin.right,
-//         height = 350 - margin.top - margin.bottom;
-
-//     // Parse the date / time
-//     //var parseDate = d3.time.format("%d-%b-%y").parse;
-//     //var parseDate = d3.time.format("%y-%b-%d").parse;
-//     //var parseDate = d3.time.format("%Y-%m-%d").parse;
-
-//     // Set the ranges
-//     var x = d3.scaleLinear().range([0, width]);
-//     var y = d3.scaleLinear().range([height, 0]);
-
-//     // Define the axes
-//     // Define the axes
-//     var xAxis = d3.axisBottom().scale(x);
-
-//     var yAxis = d3.axisLeft().scale(y).ticks(5);
-
-//     // Define the line
-//     var valueline = d3.line()
-//         .x(function(d) { return x(parseInt(d.key)); })
-//         .y(function(d) { return y(d.value); });
-
-//     var valueline2 = d3.line()
-//     .x(function(d,i){ return x(i);})
-//     .y(function(d,i){ return y(d[i]);});
-
-//     // Adds the svg canvas
-//     d3.select(".canvas>*").remove()
-//     var svg = d3.select(".canvas")
-//     .append("svg")
-//         .attr("width", width + margin.left + margin.right)
-//         .attr("height", height + margin.top + margin.bottom)
-//     .append("g")
-//         .attr("transform",
-//             "translate(" + margin.left + "," + margin.top + ")");
-
-//     svg.append("text")
-//         .attr("x", (width / 2))             
-//         .attr("y", 0 - (margin.top / 2))
-//         .attr("text-anchor", "middle")  
-//         .style("font-size", "16px") 
-//         .style("text-decoration", "underline")  
-//         .text(titleGraph);
-
-//     var x_val = []
-//     var y_val = []
-//     for (var k in data) {
-//         x_val.push(parseInt(k));
-//         y_val.push(data[k]);
-//     }
-
-//     console.log("x_val:",x_val);
-//     console.log("x_val:",y_val);
-//     var dlist = d3.entries(data);
-//     console.log("DLIST:",dlist);
-//     console.log("xdomain",[d3.min(x_val),d3.max(x_val)])
-//     console.log("ydomain",[d3.min(y_val),d3.max(y_val)])
-//     // Scale the range of the data
-//     x.domain([d3.min(x_val),d3.max(x_val)]);
-//     y.domain([d3.min(y_val), d3.max(y_val)]);
-
-//     // Add the valueline path.
-//     svg.append("path")
-//     .attr("class", "line")
-//     .attr("d", valueline(dlist));
-
-//     // Add the X Axis
-//     svg.append("g")
-//     .attr("class", "x axis")
-//     .attr("transform", "translate(0," + height + ")")
-//     .call(xAxis);
-
-//     // Add the Y Axis
-//     svg.append("g")
-//     .attr("class", "y axis")
-//     .call(yAxis);
-
-//     svg.append("text")             
-//     .attr("transform",
-//             "translate(" + (width/2) + " ," + 
-//                         (height + margin.top + 20) + ")")
-//     .style("text-anchor", "middle")
-//     .text(xLabel);
-
-//     svg.append("text")
-//     .attr("transform", "rotate(-90)")
-//     .attr("y", 0 - margin.left)
-//     .attr("x",0 - (height / 2))
-//     .attr("dy", "1em")
-//     .style("text-anchor", "middle")
-//     .text(yLabel);
-// }
 
 const drawLineChart = (props) => {
     var data = props.data;
     var elbow_point = parseInt(props.elbow);
     var xLabel = props.xLabel;
     var yLabel = props.yLabel;
-    var titleGraph = props.titleGraph
-    console.log("elbow_point is at"+elbow_point);
+    var titleGraph = props.titleGraph;
+    var containerName = props.containerName;
 
-    var margin = {top: 30, right: 20, bottom: 30, left: 50},
+    var margin = {top: 30, right: 20, bottom: 30, left: 100},
         width = 600 - margin.left - margin.right,
-        height = 270 - margin.top - margin.bottom;
+        height = 500 - margin.top - margin.bottom;
 
     var x_data  = [];
     var y_data = [];
@@ -133,7 +34,7 @@ const drawLineChart = (props) => {
     }
 
     // gridlines in y axis function
-    function make_y_gridlines() {		
+    function make_y_gridlines() {
         return d3.axisLeft().scale(y).ticks(5)
     }
 
@@ -141,21 +42,21 @@ const drawLineChart = (props) => {
     var yAxis = d3.axisLeft().scale(y);
 
     var valueline = d3.line()
-        .x(function(d){
+        .x(function(d, i){
             return x(parseInt(d.key));})
         .y(function(d){
-            return y(d.value);});
+            return y(d.value);})
+        .curve(d3.curveMonotoneX) ;
 
-    d3.select(".canvas>*").remove()    
-    var svg = d3.select('.canvas')
+    d3.select("."+containerName+">*").remove()
+    var svg = d3.select("."+containerName)  
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
-        var data_list = d3.entries(data);
-        console.log(data_list);
+    var data_list = d3.entries(data);
 
     // Scale the range of the data
     const x_gap = (d3.max(x_data) - d3.min(x_data))/count_data;
@@ -182,8 +83,9 @@ const drawLineChart = (props) => {
 
     // Add the valueline path.
     svg.append("path")
+        .datum(data_list)
         .attr("class", "line")
-        .attr("d", valueline(data_list));
+        .attr("d", valueline);
 
     var xMap = function(d) { return x(parseFloat(d.key));};
     var yMap = function(d) { return y(d.value);};
@@ -247,6 +149,7 @@ const drawLineChart = (props) => {
                 "translate(" + (width/2) + " ," + 
                             (height + margin.top + 20) + ")")
         .style("text-anchor", "middle")
+        .style("fill", "blue")
         .text(xLabel);
   
         svg.append("text")
@@ -255,6 +158,7 @@ const drawLineChart = (props) => {
         .attr("x",0 - (height / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
+        .style("fill", "blue")
         .text(yLabel);
   
         svg.append("text")
@@ -262,6 +166,7 @@ const drawLineChart = (props) => {
         .attr("y", 0 - (margin.top / 2))
         .attr("text-anchor", "middle")  
         .style("font-size", "16px") 
+        .style("fill", "blue")
         .style("text-decoration", "underline")  
         .text(titleGraph);
 }
