@@ -23,9 +23,9 @@ export default class DimReduction extends Component {
         console.log("pca data",this.state.pca_data);
         console.log("elbow point ", this.state.elbow_point);
         return(
-            <div className="canvas">
-              <Container data={this.state.loading_data} toDraw="SCATTERPLOT" xLabel = "PC0" yLabel = "PC1" titleGraph="ScatterPlot"/>
-                <Container data={this.state.pca_data}  elbow={this.state.elbow_point} xLabel = "Feature" yLabel = "Significance" titleGraph="Significance Graph" toDraw="LINECHART"/>
+            <div className="canvas-pca">
+               <Container  containerName='canvas-pca' data={this.state.loading_data} toDraw="SCATTERPLOT" xLabel = "PC0" yLabel = "PC1" titleGraph="ScatterPlot between PC1 and PC0"/>
+                <Container containerName='canvas-pca' colorCoding='false' data={this.state.pca_data}  elbow={this.state.elbow_point} xLabel = "Feature" yLabel = "Variance" titleGraph="PCA Scree Plot" toDraw="LINECHART"/>
             </div>
         )
     }

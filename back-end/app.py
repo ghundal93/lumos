@@ -74,8 +74,18 @@ def getSelectedColumnData():
 @app.route("/performKMeans", methods=["GET"])
 def performKMeans():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
-    k  = request.args['k']
-    return jsonify({"loading_data":data.performKMeans(k)}),200 
+    k  = request.args['count']
+    print("k is ",k)
+    result_dict_1, result_dict_2 = data.performKMeans(k)
+    return jsonify({"pca_data":result_dict_1, 'labels_dict':result_dict_2}),200
+
+@app.route("/kmeansScreeplot", methods=["GET"])
+def kmeansScreeplot():
+    data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    result_dict, elbow_point  = data.kmeans_screePlot()
+    # print("Elbow point for clustering : ",elbow_point)
+    # print("clustering scree plot data : ",result_dict)
+    return jsonify({'result_dict':result_dict, 'elbow_point':elbow_point}),200
 
 @app.route("/performPCA", methods=["GET"])
 def performPCA():
