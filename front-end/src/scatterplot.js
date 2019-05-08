@@ -4,7 +4,7 @@ import './App.css'
 const drawScatterPlot = (props) => {
 
     var data = props.data
-
+    var sbgContainerClass = "."+props.containerClass
     var margin = {top: 30, right: 20, bottom: 30, left: 50},
     width = 600 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -44,8 +44,8 @@ const drawScatterPlot = (props) => {
     var xAxis = d3.axisBottom().scale(x)
     var yAxis = d3.axisLeft().scale(y)
 
-    d3.select("."+containerName+">*").remove()
-    var svg = d3.select("."+containerName)
+    d3.select(sbgContainerClass+">*").remove()
+    var svg = d3.select(sbgContainerClass)
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)

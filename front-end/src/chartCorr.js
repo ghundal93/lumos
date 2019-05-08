@@ -5,7 +5,8 @@ import './chartCorr.css';
 
 //Correlation Table
 const draw_corr = (props) => {
-    d3.select('.canvas > *').remove();
+    var svgContainer = '.'+props.containerClass
+    d3.select(svgContainer +'> *').remove();
     d3.select('.legend > *').remove();
     var corrData = props.varData;
     var cols = props.colNames;
@@ -21,12 +22,12 @@ const draw_corr = (props) => {
         correlationMatrix.push(row_data);
     }
 
-    Matrix(correlationMatrix, cols);
+    Matrix(correlationMatrix, cols,svgContainer);
 
 };
 
-function Matrix(data, cols){
-    var margin = {top: 30, right: 30, bottom: 150, left: 150},
+function Matrix(data, cols,svgContainer){
+    var margin = {top: 50, right: 50, bottom: 150, left: 150},
 	    width = 600,
 	    height = 600,
 	    labelsData = cols,
@@ -47,7 +48,7 @@ function Matrix(data, cols){
 	var numrows = data.length;
 	var numcols = numrows;
 
-	var svg = d3.select(".canvas").append("svg")
+	var svg = d3.select(svgContainer).append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 		.append("g")

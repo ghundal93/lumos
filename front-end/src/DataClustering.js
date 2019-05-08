@@ -21,8 +21,8 @@ export default class DataClustering extends Component {
     render(){
         console.log("loading data",this.state.loading_data);
         return(
-            <div className="canvas">
-                <Container data={this.state.loading_data} xLabel = "Feature" yLabel = "Significance" titleGraph="Significance Graph" toDraw="LINECHART"/>
+            <div className="cluster_canvas">
+                <Container data={this.state.loading_data} xLabel = "Feature" yLabel = "Significance" titleGraph="Significance Graph" toDraw="LINECHART" containerClass="cluster_canvas"/>
             </div>
         )
     }
