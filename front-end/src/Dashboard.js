@@ -10,6 +10,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import Correlation from './Correlation';
 import DataCleaningNulls from './DataCleaningNulls';
+import ClusterScreePlot from './ClusterScreePlot';
+import ClusterVisualisation from './ClusterVisualisation'; 
 
 
 export default class Dashboard extends Component{
@@ -57,7 +59,6 @@ export default class Dashboard extends Component{
                 <Tab>
                     Data Summary
                 </Tab>
-
                 <Tab>Correlations</Tab>
               </TabList>
               <TabPanel id="tab_panel_datasummary">
@@ -82,7 +83,18 @@ export default class Dashboard extends Component{
           </TabPanel>
 
           <TabPanel id="tab_panel_data_clustering">
-            <DataClustering/>
+          <Tabs forceRenderTabPanel>
+            <TabList>
+                    <Tab> Scree Plot </Tab>
+                    <Tab> Clusterise </Tab>
+            </TabList>
+            <TabPanel id="tab_panel_cluster_screeplot">
+            <ClusterScreePlot />
+            </TabPanel>
+            <TabPanel id="tab_panel_clusterise">
+            <ClusterVisualisation />
+            </TabPanel>
+          </Tabs>
           </TabPanel>
 
           <TabPanel id="tab_panel_data_visualisation">

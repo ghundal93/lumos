@@ -73,7 +73,7 @@ function Matrix(data, cols,svgContainer){
     .domain([minValue,maxValue])
     .range([startColor, endColor]);
 
-    console.log("color map example "+colorMap(minValue));
+    // console.log("color map example "+colorMap(minValue));
 
 	var row = svg.selectAll(".row")
 	    .data(data)
