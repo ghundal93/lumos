@@ -108,6 +108,7 @@ const drawLineChart = (props) => {
     var xLabel = props.xLabel;
     var yLabel = props.yLabel;
     var titleGraph = props.titleGraph
+    var sbgContainerClass = "."+props.containerClass
     console.log("elbow_point is at"+elbow_point);
 
     var margin = {top: 30, right: 20, bottom: 30, left: 50},
@@ -146,8 +147,8 @@ const drawLineChart = (props) => {
         .y(function(d){
             return y(d.value);});
 
-    d3.select(".canvas>*").remove()    
-    var svg = d3.select('.canvas')
+    d3.select(sbgContainerClass+ '>*').remove();   
+    var svg = d3.select(sbgContainerClass)
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)

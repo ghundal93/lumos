@@ -40,10 +40,10 @@ export default class Correlation extends Component{
           return(
             <div>
                 <p>Correlation Table</p>
-                <div className="legend"  ></div>
-                <div className="canvas" >
-                <Container colNames={this.state.columns} varData={this.state.corr} toDraw="CORR"></Container>
+                <div className="corr_canvas" >
+                <Container colNames={this.state.columns} varData={this.state.corr} toDraw="CORR" containerClass="corr_canvas"></Container>
                 </div>
+                <div className="legend"  ></div>
             </div>
 
           );
