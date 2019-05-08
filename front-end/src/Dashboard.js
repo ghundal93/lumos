@@ -54,7 +54,7 @@ export default class Dashboard extends Component{
         </TabList>
 
           <TabPanel id="tab_panel_data_summary_titles">
-            <Tabs forceRenderTabPanel>
+            <Tabs>
               <TabList class="sub_tabs">
                 <Tab>
                     Data Summary
@@ -69,9 +69,7 @@ export default class Dashboard extends Component{
               </TabPanel>
             </Tabs>
           </TabPanel>
-          
-          
-          
+
           <TabPanel id="tab_panel_data_cleaning">
             <Tabs>
                 <TabList>

@@ -3,9 +3,9 @@ import './App.css'
 import { normalize } from 'uri-js';
 
 // Bar Chart
-function drawBarChart(binArray, margin,barSep,nBins,w,h,onComponentClicked,binRange){
-    d3.select(".canvas>*").remove()
-    var svg = d3.select('.canvas').append('svg')
+function drawBarChart(binArray, margin,barSep,nBins,w,h,onComponentClicked,binRange,sbgContainerClass){
+    d3.select(sbgContainerClass+">*").remove()
+    var svg = d3.select(sbgContainerClass).append('svg')
     .attr('height',h)
     .attr('width',w)
     .attr('id','svg-viz')
@@ -120,8 +120,8 @@ function drawBarChart(binArray, margin,barSep,nBins,w,h,onComponentClicked,binRa
 }
 
 // Pie Chart
-function drawPieChart(binArray,nBins,width,height,margin,onComponentClicked,binRange){
-    d3.select(".canvas>*").remove();
+function drawPieChart(binArray,nBins,width,height,margin,onComponentClicked,binRange,sbgContainerClass){
+    d3.select(sbgContainerClass+">*").remove()
     var radius = width/4;
 
     var color = d3.scaleOrdinal(["#ABA847","#9AA448","#89A14B","#799C4E","#6A9852","#5B9357","#4D8D5B","#40885F","#358262","#2B7B65","#237566","#1F6E67","#1E6867","#206166","#235A64","#285360","#2C4C5C","#2F4557","#323E51","#34374A"]);
@@ -150,7 +150,7 @@ function drawPieChart(binArray,nBins,width,height,margin,onComponentClicked,binR
         .value(function(d) { return d; });
     
     // define the svg for pie chart
-    var svg = d3.select(".canvas").append("svg")
+    var svg = d3.select(sbgContainerClass).append("svg")
     .attr("width", width)
     .attr("height", height)
     .attr('class','svg')
@@ -240,7 +240,8 @@ function drawPieChart(binArray,nBins,width,height,margin,onComponentClicked,binR
 
 // bins the array and draws bar/pie chart based on the shape passed
 const draw = (props) => {
-    d3.select('.canvas > *').remove();
+    var sbgContainerClass = "."+props.containerClass
+    d3.select(sbgContainerClass+ '>*').remove();
     var data = props.varData;
     const margin = 50
     var nBins = props.nBins;
@@ -290,11 +291,9 @@ const draw = (props) => {
     }
     console.log("BINRANGE:",binRange)
     if(props.shape == "BAR")
-        drawBarChart(binArray,margin,4*margin,nBins,w/2,h-h/4,props.onComponentClicked,binRange)
+        drawBarChart(binArray,margin,4*margin,nBins,w/2,h-h/4,props.onComponentClicked,binRange,sbgContainerClass)
     else if(props.shape == "CIRCLE")
-        drawPieChart(binArray,nBins,w/2,h-h/3,margin,props.onComponentClicked,binRange)
-    else
-        drawForceLayout(data,w,h,nBins,props.onComponentClicked)
+        drawPieChart(binArray,nBins,w/2,h-h/3,margin,props.onComponentClicked,binRange,sbgContainerClass)
 
 }
 
