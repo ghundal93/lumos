@@ -39,7 +39,6 @@ export default class Correlation extends Component{
           const corr = this.state.corr;
           return(
             <div>
-                <p>Correlation Table</p>
                 <div className="legend"  ></div>
                 <div className="canvas" >
                 <Container colNames={this.state.columns} varData={this.state.corr} toDraw="CORR"></Container>
