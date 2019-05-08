@@ -4,8 +4,8 @@ import './App.css';
 //import './FileUpload.js';
 import DataSummary from './DataSummary.js';
 import DataVisualization from './DataVisualization.js';
-import DataClustering from './DataClustering.js';
-import DimReduction from './DimReduction.js';
+import PCADimReduction from './PCADimReduction.js';
+import MDSDimReduction from './MDSDimReduction.js';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import Correlation from './Correlation';
@@ -102,9 +102,23 @@ export default class Dashboard extends Component{
           <TabPanel id="tab_panel_data_visualisation">
             <DataVisualization/>
           </TabPanel>
-          <TabPanel id="tab_panel_data_visualisation">
-            <DimReduction/>
+
+
+          <TabPanel id="tab_panel_dim_reduction">
+          <Tabs forceRenderTabPanel>
+            <TabList>
+                <Tab> MDS </Tab>
+                <Tab> PCA </Tab>
+            </TabList>
+            <TabPanel id="tab_panel_mds">
+              <MDSDimReduction/>
+            </TabPanel>
+            <TabPanel id="tab_panel_pca">
+              <PCADimReduction/>
+            </TabPanel>
+          </Tabs>
           </TabPanel>
+        
         </Tabs>
         </div>
         );

@@ -8,6 +8,10 @@ export default class ClusterVisualisation extends Component{
         this.state = {
             labelsDict : {},
             pcaDict : {},
+            mdsEucLabelsDict : {},
+            mdsCorrLabelsDict : {},
+            mdsEucDict : {},
+            mdsCorrDict : {},
             clusterCount : 4
         }
     }
@@ -20,7 +24,11 @@ export default class ClusterVisualisation extends Component{
         fetch("http://127.0.0.1:5000/performKMeans?count="+count)
         .then(data => data.json())
         .then(res => this.setState({pcaDict : res.pca_data, 
-                                    labelsDict : res.labels_dict}));
+                                    labelsDict : res.labels_dict,
+                                    mdsEucDict : res.mds_euc_data,
+                                    mdsEucLabelsDict : res.mds_euc_labels_dict,
+                                    mdsCorrDict : res.mds_corr_data,
+                                    mdsCorrLabelsDict : res.mds_corr_labels_dict}));
     }
 
     onClusCountChange(e){
@@ -32,6 +40,11 @@ export default class ClusterVisualisation extends Component{
     render() {
         const pcaDict = this.state.pcaDict;
         const labelsDict = this.state.labelsDict;
+        const mdsEucDict = this.state.mdsEucDict;
+        const mdsCorrDict = this.state.mdsCorrDict;
+        const mdsEucLabelsDict =  this.state.mdsEucLabelsDict;
+        const mdsCorrLabelsDict = this.state.mdsCorrLabelsDict;
+
         const countRange = new Array(24);
         for(var i=0; i < countRange.length; i++){
             countRange[i] = i+2;
@@ -49,6 +62,8 @@ export default class ClusterVisualisation extends Component{
                 </div>
                 <div class='canvas-cluster'>
                 <Container containerName='canvas-cluster' colorCoding='true' data={pcaDict} labels={labelsDict} toDraw="SCATTERPLOT" xLabel = "PC0" yLabel = "PC1" titleGraph="Cluster Formations"></Container>
+                <Container containerName='canvas-cluster' colorCoding='true' data={mdsEucDict} labels={mdsEucLabelsDict} toDraw="SCATTERPLOT" xLabel = "MDS0" yLabel = "MDS1" titleGraph="Cluster Formations on MDS - EUC"></Container>
+                <Container containerName='canvas-cluster' colorCoding='true' data={mdsCorrDict} labels={mdsCorrLabelsDict} toDraw="SCATTERPLOT" xLabel = "MDS0" yLabel = "MDS1" titleGraph="Cluster Formations on MDS - CORR"></Container>
                 </div>
             </div>
         );

@@ -75,9 +75,13 @@ def getSelectedColumnData():
 def performKMeans():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
     k  = request.args['count']
-    print("k is ",k)
-    result_dict_1, result_dict_2 = data.performKMeans(k)
-    return jsonify({"pca_data":result_dict_1, 'labels_dict':result_dict_2}),200
+    result_dict_pca , pca_label_dict, data_transformed_euc, mds_euc_label_dict, data_transformed_corr, mds_corr_label_dict = data.performKMeans(k)
+    return jsonify({"pca_data":result_dict_pca, 
+                    'labels_dict':pca_label_dict, 
+                    "mds_euc_data":data_transformed_euc,
+                    "mds_euc_labels_dict" : mds_euc_label_dict,
+                    "mds_corr_data" : data_transformed_corr,
+                    "mds_corr_labels_dict" : mds_corr_label_dict}),200
 
 @app.route("/kmeansScreeplot", methods=["GET"])
 def kmeansScreeplot():
@@ -91,8 +95,17 @@ def kmeansScreeplot():
 def performPCA():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
     nC  = request.args['nC']
-    pca_data, elbow_point, PCA_corr = data.performPCA(nC)
-    return jsonify({"pca_data":pca_data,"elbow_point":elbow_point, "loading_data":PCA_corr}),200
+    pca_data, elbow_point, PCA_corr, loadings = data.performPCA(nC)
+    print("loadings Data : ",loadings)
+    return jsonify({"pca_data":pca_data,"elbow_point":elbow_point, "pca_corr_data":PCA_corr, "loadings_data":loadings}),200
+
+'''
+@app.route("/performMDS", methods=["GET"])
+def performMDS():
+    data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    result_euc, result_corr = data.perform_MDS()
+    return jsonify({"result_euc":result_euc, "result_corr":result_corr}),200
+'''
 
 
 @app.route("/checkNulls", methods=["GET"])
