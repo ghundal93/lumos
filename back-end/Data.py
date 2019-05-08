@@ -17,8 +17,8 @@ class Data:
         self.df = pd.read_csv(os.path.join(path, filename))
 
     def summarize_data(self):
-        return json.loads(self.df.describe().to_json())
-        #return self.df.describe().to_json(orient='columns')
+        #return json.loads(self.df.describe().to_json())
+        return self.df.describe().to_json(orient='columns')
         #return self.df.describe().values.tolist()
     
     # def get_corr_matrix(self):

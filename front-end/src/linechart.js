@@ -8,8 +8,9 @@ const drawLineChart = (props) => {
     var elbow_point = parseInt(props.elbow);
     var xLabel = props.xLabel;
     var yLabel = props.yLabel;
-    var titleGraph = props.titleGraph;
-    var containerName = props.containerName;
+    var titleGraph = props.titleGraph
+    var sbgContainerClass = "."+props.containerClass
+    console.log("elbow_point is at"+elbow_point);
 
     var margin = {top: 30, right: 20, bottom: 30, left: 100},
         width = 600 - margin.left - margin.right,
@@ -48,8 +49,8 @@ const drawLineChart = (props) => {
             return y(d.value);})
         .curve(d3.curveMonotoneX) ;
 
-    d3.select("."+containerName+">*").remove()
-    var svg = d3.select("."+containerName)  
+    d3.select(sbgContainerClass+ '>*').remove();   
+    var svg = d3.select(sbgContainerClass)
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
