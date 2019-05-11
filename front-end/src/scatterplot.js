@@ -53,13 +53,11 @@ const drawScatterPlot = (props) => {
         .attr("transform","translate(" + margin.left + "," + margin.top + ")");
     
     var data_list = d3.entries(data);
-    console.log(data_list);
     
       // Scale the range of the data
     const x_gap = (d3.max(x_data) - d3.min(x_data))/count_data;
     const y_gap = (d3.max(y_data) - d3.min(y_data))/count_data;
-    // console.log("x gap is ",x_gap);
-    // console.log("y gap is ",y_gap);
+
     x.domain([d3.min(x_data)-20*x_gap, d3.max(x_data)+20*x_gap]);
     y.domain([d3.min(y_data)-20*y_gap, d3.max(y_data)+20*y_gap]);
     

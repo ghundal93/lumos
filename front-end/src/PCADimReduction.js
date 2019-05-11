@@ -12,28 +12,39 @@ export default class PCADimReduction extends Component {
     
     constructor(){
         super();
-        this.state = { pca_data:{},
+        this.state = {  variance_data:{},
                         loadings_data:{},
                         pca_corr_data :{},
                         elbow_point:0,
                         columns : [],
                         comp_score : {},
+                        pca_count:0,
+                        pca_data : {},
+                        download_data : false,
                         task : ""};
       }
 
-    
+    /*
     componentDidMount() {
-        this.getDimReducedData()    
+        this.getDimReducedData()
     }
+    */
 
-    getDimReducedData() {
-        fetch("http://127.0.0.1:5000/performPCA?nC=5")
+    getPCAStats() {
+        fetch("http://127.0.0.1:5000/performPCA?nC=10")
         .then(data => data.json())
-        .then(res => this.setState({ pca_data:res.pca_data, 
+        .then(res => this.setState({ variance_data:res.var_data,
                                     elbow_point: res.elbow_point, 
                                     pca_corr_data: res.pca_corr_data, 
                                     loadings_data:JSON.parse(res.loadings_data),
                                     comp_score : JSON.parse(res.comp_score)}));
+    }
+
+    getDimReducedData(count) {
+        fetch("http://127.0.0.1:5000/reduceDataDimPCA?count="+count)
+        .then(data => data.json())
+        .then(res => this.setState({ pca_data : res.reduced_data_path}))
+        .then(this.setState({download_data : true}));
     }
 
     getColumnNames(){
@@ -45,11 +56,49 @@ export default class PCADimReduction extends Component {
     onTaskChange(e){
         var task = e.target.value;
         this.setState({task : task});
-        this.getDimReducedData();
-        this.getColumnNames();
+        if(task != "Apply PCA on data") {
+            this.getPCAStats();
+            this.getColumnNames();
+        }
     }
 
-    
+    onCountChange(e) {
+        var count  = parseInt(e.target.value);
+        
+        if(count != 0){
+            this.setState({pca_count : count});
+            this.getDimReducedData(count);
+        } else {
+            this.setState({download_data : false});
+        }
+    }
+
+    downloadPCAPath() {
+        var path = this.state.pca_data;
+        fetch("http://127.0.0.1:5000/getPCAData?path="+path)
+        .then((response) => {
+            var a = response.body.getReader();
+            a.read().then(({ done, value }) => {
+                this.saveAsFile(new TextDecoder("utf-8").decode(value), 'filename');
+              }
+            );
+        });
+    }
+
+    saveAsFile(text, filename) {
+        // Step 1: Create the blob object with the text you received
+        const type = 'application/text'; // modify or get it from response
+        const blob = new Blob([text], {type});
+      
+        // Step 2: Create Blob Object URL for that blob
+        const url = URL.createObjectURL(blob);
+      
+        // Step 3: Trigger downloading the object using that URL
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click(); // triggering it manually
+      }
 
     render(){
         const task = this.state.task;
@@ -57,8 +106,9 @@ export default class PCADimReduction extends Component {
         
 
         if(task == "View Scree Plot"){
+            console.log(this.state.variance_data);
             containerComp = <div>
-            <Container className="canvas-pca" containerClass='canvas-pca' colorCoding='false' data={this.state.pca_data}  elbow={this.state.elbow_point} xLabel = "Feature" yLabel = "Variance" titleGraph="PCA Scree Plot" toDraw="LINECHART"/>
+            <Container className="canvas-pca" containerClass='canvas-pca' colorCoding='false' data={this.state.variance_data}  elbow={this.state.elbow_point} xLabel = "Feature" yLabel = "Variance" titleGraph="PCA Scree Plot" toDraw="LINECHART"/>
             <div className="canvas-pca">
             </div>
             </div>;
@@ -102,7 +152,28 @@ export default class PCADimReduction extends Component {
                 </table>
                 </div>;
         } else if (task == "Apply PCA on data") {
-            containerComp = <div> Hii </div>;
+            var option_list = [];
+            option_list.push(<option key='0' id='0' value='--- Select ---'>--- Select ---</option>);
+            for(var i = 1; i <= 10; i++){
+                option_list.push(<option key={i} id={i} value={i}>{i}</option>);
+            }
+
+            let buttonComp;
+            if(this.state.download_data == true){
+                var path = this.state.pca_data;
+                //"http://localhost:3000/Users/apekshasinghal/Documents/SBU/Visualization/FinalProject/lumos/back-end/Transformed_data/pca_data.csv"
+                buttonComp = 
+                //<a href={path} download>Download</a>
+                <button onClick={this.downloadPCAPath.bind(this)} >Download!</button>;
+            }
+
+            containerComp = <div>
+            <h2> Select count of principle components </h2>
+            <select className="select-box" id="select-pca-count" value={this.state.pca_count} onChange={this.onCountChange.bind(this)}>
+            {option_list}
+            </select>
+            <br></br>{buttonComp}</div>;
+            
         } else if (task == "View Component Score Table") {
             var comp_score = this.state.comp_score;
             var numCols = Object.keys(comp_score).length;
