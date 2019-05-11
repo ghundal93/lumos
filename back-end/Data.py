@@ -36,6 +36,16 @@ class Data:
     def checkNulls(self):
         return self.df.isna().sum().to_json(orient='records')
 
+    def reduceDimPCA(self, count=5):
+        pca, reduced_data = self.perform_PCA(self.df, int(count))
+        print("shape of reduced_data : ",reduced_data.shape," and type : ",type(reduced_data))
+        df_dict = {}
+        for i in range(int(count)):
+            df_dict['PC'+str(i+1)] = reduced_data[:, i]
+        pca_df = pd.DataFrame(df_dict)
+        print(pca_df.describe())
+        return pca_df
+
     def performPCA(self, nC=5):
         #Code generating data for scree plot
         result_dict, elbow_point, loadings = self.draw_scree_plot(self.df, int(nC))
@@ -43,9 +53,16 @@ class Data:
 
         #Code to get PC1 and PC2 correlation
         PC_data = self.PCA_2_PC_scatter(self.df)
+
+        #Normalizing data
+        mean_df = self.df.mean()
+        norm_df = self.df - mean_df
+
+        comp_scores = pd.DataFrame(np.matmul(norm_df.values, loadings.T.values))
+
         # print("PC_data: ", PC_data)
 
-        return result_dict, elbow_point, PC_data, loadings
+        return result_dict, elbow_point, PC_data, loadings.to_json(orient='columns'), comp_scores.to_json(orient='columns')
 
     def get_scaled_data(self, data_df):
         minmaxsc = MinMaxScaler()
@@ -77,15 +94,18 @@ class Data:
         for i in range(loadings.shape[0]):
             loadings_dict[i] = list(map(float, loadings[i]))
         
+        loadings_result = pd.DataFrame.from_dict(loadings_dict)
         #Get elbow point
         eigvals = pca_temp.singular_values_
         vals = np.arange(nC)
         kn = KneeLocator(range(len(vals)), eigvals, curve='convex', direction='decreasing')
-        # print("Elbow point :  ",kn.knee)
+        
         result_dict = {}
         for i,val in enumerate(eigvals):
             result_dict[str(vals[i])] = val
-        return result_dict, kn.knee, loadings_dict
+        
+        
+        return result_dict, kn.knee, loadings_result
 
     def perform_PCA(self, data_df, pc_count):
         pca = PCA(n_components=pc_count)

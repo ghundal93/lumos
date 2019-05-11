@@ -1,5 +1,4 @@
 import json
-
 from flask import Flask, render_template, request, redirect, Response, jsonify, url_for, json
 import operator
 import ast
@@ -8,8 +7,12 @@ from flask_json import json_response
 from flask_cors import CORS, cross_origin
 import os
 import Data
+import pandas as pd
+import numpy as np
+from flask import send_file
 
 UPLOAD_FOLDER = os.getcwd()+"/Uploaded_data/"
+DOWNLOAD_FOLDER = os.getcwd()+"/Transformed_data"
 UPLOADED_FILE_NAME = "data.csv"
 ALLOWED_EXTENSIONS = set(['csv'])
 #First of all you have to import it from the flask module:
@@ -18,6 +21,7 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['FILE_NAME'] = UPLOADED_FILE_NAME
+app.config['PCA_DATA'] = DOWNLOAD_FOLDER+"/pca_data.csv"
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -60,6 +64,11 @@ def getCorr():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
     return jsonify({"corr":data.get_corr_matrix()}),200
 
+@app.route("/getPCAData", methods=["GET"])
+def getPCAData() :
+    path = request.args['path']
+    return (send_file(path))
+
 @app.route("/getColNames",methods=["GET"])
 def getColNames():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
@@ -95,18 +104,17 @@ def kmeansScreeplot():
 def performPCA():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
     nC  = request.args['nC']
-    pca_data, elbow_point, PCA_corr, loadings = data.performPCA(nC)
-    print("loadings Data : ",loadings)
-    return jsonify({"pca_data":pca_data,"elbow_point":elbow_point, "pca_corr_data":PCA_corr, "loadings_data":loadings}),200
+    var_data, elbow_point, PCA_corr, loadings, comp_score = data.performPCA(nC)
+    return jsonify({"var_data":var_data,"elbow_point":elbow_point, "pca_corr_data":PCA_corr, "loadings_data":loadings, "comp_score":comp_score}),200
 
-'''
-@app.route("/performMDS", methods=["GET"])
-def performMDS():
+@app.route("/reduceDataDimPCA", methods=["GET"])
+def reduceDataDimPCA():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
-    result_euc, result_corr = data.perform_MDS()
-    return jsonify({"result_euc":result_euc, "result_corr":result_corr}),200
-'''
+    count  = request.args['count']
+    reduced_data = data.reduceDimPCA(count)
+    reduced_data.to_csv(app.config['PCA_DATA'])
 
+    return jsonify({"reduced_data_path" : app.config['PCA_DATA']}),200
 
 @app.route("/checkNulls", methods=["GET"])
 def checkNulls():
