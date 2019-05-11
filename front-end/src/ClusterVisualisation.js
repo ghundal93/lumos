@@ -61,9 +61,9 @@ export default class ClusterVisualisation extends Component{
                 </select>
                 </div>
                 <div class='canvas-cluster'>
-                <Container containerName='canvas-cluster' colorCoding='true' data={pcaDict} labels={labelsDict} toDraw="SCATTERPLOT" xLabel = "PC0" yLabel = "PC1" titleGraph="Cluster Formations"></Container>
-                <Container containerName='canvas-cluster' colorCoding='true' data={mdsEucDict} labels={mdsEucLabelsDict} toDraw="SCATTERPLOT" xLabel = "MDS0" yLabel = "MDS1" titleGraph="Cluster Formations on MDS - EUC"></Container>
-                <Container containerName='canvas-cluster' colorCoding='true' data={mdsCorrDict} labels={mdsCorrLabelsDict} toDraw="SCATTERPLOT" xLabel = "MDS0" yLabel = "MDS1" titleGraph="Cluster Formations on MDS - CORR"></Container>
+                <Container containerClass='canvas-cluster' colorCoding='true' data={pcaDict} labels={labelsDict} toDraw="SCATTERPLOT" xLabel = "PC0" yLabel = "PC1" titleGraph="Cluster Formations"></Container>
+                <Container containerClass='canvas-cluster' colorCoding='true' data={mdsEucDict} labels={mdsEucLabelsDict} toDraw="SCATTERPLOT" xLabel = "MDS0" yLabel = "MDS1" titleGraph="Cluster Formations on MDS - EUC"></Container>
+                <Container containerClass='canvas-cluster' colorCoding='true' data={mdsCorrDict} labels={mdsCorrLabelsDict} toDraw="SCATTERPLOT" xLabel = "MDS0" yLabel = "MDS1" titleGraph="Cluster Formations on MDS - CORR"></Container>
                 </div>
             </div>
         );

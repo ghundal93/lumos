@@ -51,22 +51,31 @@
   height: 5px;
 }
 
+.header-row{
+  background-color: yellowgreen;
+  border-color: black;
+  font-size: small;
+  font-weight: bold;
+  width: 75px
+}
+
+
 .odd{
   background-color: azure;
   border-color: black;
-  font-size: smaller
+  font-size: smaller;
 }
 
 .even{
   background-color: wheat;
   border-color: black;
-  font-size: smaller
+  font-size: smaller;
 }
 
-.header-row {
-  background-color: green;
-  border-color: black;
-  font-size: smaller
+.scrollable-table{
+  overflow-y: scroll;
+  height:350px;
+  display:block
 }
 
 .display-flex{

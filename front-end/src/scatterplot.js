@@ -11,7 +11,7 @@ const drawScatterPlot = (props) => {
     var xLabel = props.xLabel;
     var yLabel = props.yLabel;
     var colorCoding = props.colorCoding;
-    var containerName = props.containerName;
+    var sbgContainerClass = "."+props.containerClass;
     
     var titleGraph = props.titleGraph
     var x_data  = [];
