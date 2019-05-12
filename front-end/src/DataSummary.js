@@ -105,25 +105,27 @@ export default class DataSummary extends Component{
           }
           const func = this.onCheckBoxChange
           // console.log("NonNUM:",this.state.sum_nom_numeric)
-          var nn = <div><label>No Non Numerical Column present</label></div>
+          var nn = <div><label>No Column to convert</label></div>
           var isNonNumPresent = false
           if(Object.keys(sum_nom_numeric).length >0){
             isNonNumPresent = true
             var rows = []
             Object.keys(sum_nom_numeric).map(
-              function(key){
-                return(
-                  rows.push(<tr>
+              function(key,i){
+                if(i%2 == 0){
+                  rows.push(<tr className="odd">
                     <td>{key}</td>
-                    <td>{sum_nom_numeric[key]["name"]}</td>
-                    <td><input type ="checkbox" key={key} value={key} id={key} onClick={func}></input></td>
-                  </tr>)
-                )
+                <td>{sum_nom_numeric[key]["name"]}</td>
+                <td><input type ="checkbox" key={key} value={key} id={key} onClick={func}/></td>
+                  </tr>)}
+                  else{rows.push(<tr className="even"><td>{key}</td>
+                  <td>{sum_nom_numeric[key]["name"]}</td>
+                  <td><input type ="checkbox" key={key} value={key} id={key} onClick={func}/></td></tr>)}
               }
             )
            // nn.push(<table><tbody><tr><th>Columns</th><th>Type</th></tr>)
            nn = <div>
-             <div><table><tbody></tbody><tr><td>Columns</td><td>Type</td><td>Choose Column to Convert</td></tr>{rows}</table></div>
+             <div><table><tbody></tbody><tr className="header"><td>Columns</td><td>Type</td><td>Choose Column to Convert</td></tr>{rows}</table></div>
              <div><button onClick={this.onConvertColsClicked}>Convert Columns</button></div>
              </div>
           }
@@ -131,14 +133,15 @@ export default class DataSummary extends Component{
             <div className="display-flex">
               <div className="row-left">
                 <div>
+                    <label>Numerical:</label>
                       <table>
                         <tbody>
-                          <tr className = "even">
+                          <tr className = "header">
                           <th>Columns</th>
                           {
                             Object.keys(arr).map(
-                                function(key,i){
-                                return  ((i%2 == 0)?<th>{key}</th> : <th>{key}</th>)
+                                function(key){
+                                return  <th>{key}</th>
                                 }
                               )
                           }   
@@ -146,19 +149,12 @@ export default class DataSummary extends Component{
                       {
                       Object.keys(summary).map(
                           function(key,i){
-                          return (
-                                <tr>
-                                  <td className = "even">{key}</td>
-                                  {
-                                  Object.keys(summary[key]).map(
-                                      function(k,i){
-                                        return  ((i%2 == 0)?<td>{summary[key][k]}</td> : <td>{summary[key][k]}</td>)
-                                      }
-                                  )
-                                  }
-                              
-                              </tr>
-                          )
+                            const cols = []
+                            Object.keys(summary[key]).map(
+                              function(k,i){
+                                cols.push(<td>{summary[key][k]}</td> )
+                              })
+                          return(i%2 ==0)?<tr className = "odd"><td>{key}</td>{cols}</tr>:<tr className = "even"><td>{key}</td>{cols}</tr>
                           }
                       )
                   }
@@ -166,6 +162,7 @@ export default class DataSummary extends Component{
                   </table>
                   </div>
                 <div>
+                <label>Non - Numerical:</label>
                     {nn}
                   </div>
               </div>
