@@ -16,3 +16,13 @@
     border-color: black;
     font-size: smaller
 }
+
+.display-flex{
+    display: flex;
+    flex-direction: column;
+  }
+
+.row-left{
+    display: flex;
+    flex-direction: row;
+}

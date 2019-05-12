@@ -48,7 +48,7 @@ export default class ClusterVisualisation extends Component{
                 </select>
                 </div>
                 <div class='canvas-cluster'>
-                <Container containerName='canvas-cluster' colorCoding='true' data={pcaDict} labels={labelsDict} toDraw="SCATTERPLOT" xLabel = "PC0" yLabel = "PC1" titleGraph="Cluster Formations"></Container>
+                <Container containerClass='canvas-cluster' colorCoding='true' data={pcaDict} labels={labelsDict} toDraw="SCATTERPLOT" xLabel = "PC0" yLabel = "PC1" titleGraph="Cluster Formations"></Container>
                 </div>
             </div>
         );

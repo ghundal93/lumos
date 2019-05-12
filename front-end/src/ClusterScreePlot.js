@@ -29,7 +29,7 @@ export default class ClusterScreePlot extends Component{
         return(
             <div>
                 <div class='canvas-scree'>
-                <Container containerName='canvas-scree' data={distData}  elbow={elbow_point} xLabel = "Cluster Count" yLabel = "Distance" titleGraph="Clustering Scree Plot" toDraw="LINECHART"></Container>
+                <Container containerClass='canvas-scree' data={distData}  elbow={elbow_point} xLabel = "Cluster Count" yLabel = "Distance" titleGraph="Clustering Scree Plot" toDraw="LINECHART"></Container>
                 </div>
             </div>
         );
