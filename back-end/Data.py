@@ -38,12 +38,12 @@ class Data:
 
     def reduceDimPCA(self, count=5):
         pca, reduced_data = self.perform_PCA(self.df, int(count))
-        print("shape of reduced_data : ",reduced_data.shape," and type : ",type(reduced_data))
+        # print("shape of reduced_data : ",reduced_data.shape," and type : ",type(reduced_data))
         df_dict = {}
         for i in range(int(count)):
             df_dict['PC'+str(i+1)] = reduced_data[:, i]
         pca_df = pd.DataFrame(df_dict)
-        print(pca_df.describe())
+        # print(pca_df.describe())
         return pca_df
 
     def performPCA(self, nC=5):
@@ -112,6 +112,24 @@ class Data:
         dataset = pca.fit_transform(data_df)
 
         return pca, dataset
+
+    def reduceDimMDS(self, matrix='euclidean', comp=2):
+        dissimilarity = matrix
+        embeddings = pd.DataFrame()
+        data_df = self.df
+        if matrix == 'correlation':
+            corr_df = pairwise_distances(self.df, metric=matrix)
+            data_df = corr_df
+            dissimilarity = 'precomputed'
+        embeddings = MDS(n_components=int(comp), dissimilarity=dissimilarity)
+        data_transformed  = embeddings.fit_transform(data_df)
+        print("shape of reduced_data : ",data_transformed.shape," and type : ",type(data_transformed))
+        df_dict = {}
+        for i in range(int(comp)):
+            df_dict['MDS'+str(i+1)] = data_transformed[:, i]
+        mds_df = pd.DataFrame(df_dict)
+        print(mds_df.describe())
+        return mds_df
     
     def performKMeans(self, k):
         data_2D = PCA(n_components=2).fit(self.df).transform(self.df)
