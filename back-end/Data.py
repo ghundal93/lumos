@@ -8,6 +8,7 @@ from flask import jsonify
 from kneed import DataGenerator, KneeLocator
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
+from sklearn.preprocessing import LabelEncoder
 from sklearn.manifold import MDS
 from sklearn.metrics import pairwise_distances
 
@@ -35,6 +36,9 @@ class Data:
 
     def checkNulls(self):
         return self.df.isna().sum().to_json(orient='records')
+    
+    def getNonNumCols(self):
+        return (self.df.select_dtypes(exclude=np.number)).dtypes.to_json(orient="columns")
 
     def reduceDimPCA(self, count=5):
         pca, reduced_data = self.perform_PCA(self.df, int(count))
@@ -182,6 +186,19 @@ class Data:
             result_dict[i] = dist[i-2]
 
         return result_dict, kn.knee
+    
+    def removeNonNumCols(self,cols,path):
+        print("COLS,",cols)
+        le = LabelEncoder()
+        cols = cols.replace("\"","")
+        cat_cols = cols.strip("[]").split(",")
+        print("CAT_COLS",cat_cols)
+        for col in cat_cols:
+            self.df[col] = le.fit_transform(self.df[col])
+        # self.df[cat_cols] = self.df[cat_cols].apply(lambda col: le.fit_transform(col))
+        os.remove(path)
+        self.df.to_csv(path)
+        return "SUCCESS"
 
 
 

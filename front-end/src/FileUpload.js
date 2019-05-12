@@ -11,6 +11,7 @@ constructor(props) {
       }
     this.handleUploadImage = this.handleUploadImage.bind(this);
     // this.uploadInput = React.createRef();
+    this.updateParent = this.updateParent.bind(this)
   }
 
 
@@ -20,11 +21,14 @@ constructor(props) {
     const data = new FormData();
     data.append('file', this.uploadInput.files[0]);
     axios.post('http://localhost:5000/upload', data)
-      .then(this.props.handler("Dashboard"))
+      .then(this.updateParent)
       .catch(function (error) {
         console.log(error);
       });
+  }
 
+  updateParent(){
+    this.props.handler("Dashboard")
   }
 
   render(){

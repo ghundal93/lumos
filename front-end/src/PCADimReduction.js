@@ -5,7 +5,7 @@ import draw from './chart.js';
 import drawScatterPlot from './scatterplot.js';
 import drawLineChart from './linechart.js';
 import draw_corr from './chartCorr.js';
-import Dummy from './Dummy';
+//import Dummy from './Dummy';
 import './App.css'
 
 export default class PCADimReduction extends Component {
