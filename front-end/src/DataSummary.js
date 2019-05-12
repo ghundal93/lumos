@@ -55,7 +55,7 @@ export default class DataSummary extends Component{
                     <table>
                       <tbody>
                         <tr>
-                        <th className = "even">Columns</th>
+                        <th className = "header-row">Columns</th>
                         {
                           Object.keys(arr).map(
                               function(key,i){
