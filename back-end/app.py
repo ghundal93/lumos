@@ -22,6 +22,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['FILE_NAME'] = UPLOADED_FILE_NAME
 app.config['PCA_DATA'] = DOWNLOAD_FOLDER+"/pca_data.csv"
+app.config['MDS_DATA'] = DOWNLOAD_FOLDER+"/mds_data.csv"
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -64,8 +65,8 @@ def getCorr():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
     return jsonify({"corr":data.get_corr_matrix()}),200
 
-@app.route("/getPCAData", methods=["GET"])
-def getPCAData() :
+@app.route("/getFileData", methods=["GET"])
+def getFileData() :
     path = request.args['path']
     return (send_file(path))
 
@@ -115,6 +116,15 @@ def reduceDataDimPCA():
     reduced_data.to_csv(app.config['PCA_DATA'])
 
     return jsonify({"reduced_data_path" : app.config['PCA_DATA']}),200
+
+@app.route("/reduceDataDimMDS", methods=["GET"])
+def reduceDataDimMDS() :
+    data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    matrix = request.args['matrix']
+    comp = request.args['count']
+    reduced_data = data.reduceDimMDS(matrix, comp)
+    reduced_data.to_csv(app.config['MDS_DATA'])
+    return jsonify({"reduced_data_path" : app.config['MDS_DATA']}),200
 
 @app.route("/checkNulls", methods=["GET"])
 def checkNulls():
