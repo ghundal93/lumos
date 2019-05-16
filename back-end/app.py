@@ -48,7 +48,10 @@ def upload():
         if file and allowed_file(file.filename):
             # filename = secure_filename(file.filename)
             filename = file.filename
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] ))
+            path = os.path.join(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+            if(os.path.isfile(path)):
+                os.remove(path)
+            file.save(path)
             data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
             return jsonify({"message":"BLESS YOU!","summary":data.summarize_data(),"corr":data.get_corr_matrix()}),200
         else :
@@ -59,6 +62,11 @@ def upload():
 def getSummary():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
     return jsonify({"summary":data.summarize_data()}),200
+
+@app.route("/getNonNumCols",methods=["GET"])
+def getNonNumCols():
+    data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    return jsonify({"non_numeric":data.getNonNumCols()}),200
 
 @app.route("/getCorr",methods=["GET"])
 def getCorr():
@@ -130,6 +138,13 @@ def reduceDataDimMDS() :
 def checkNulls():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
     return jsonify({"null_data":data.checkNulls()}),200    
+
+@app.route("/convertCols", methods=["POST"])
+def convertCols():
+    r_data = request.get_json()
+    print("COLS",r_data["cols"])
+    data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    return jsonify({"message":data.removeNonNumCols(r_data["cols"],os.path.join(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] ))}),200   
 
 if __name__ == "__main__":
     data = None
