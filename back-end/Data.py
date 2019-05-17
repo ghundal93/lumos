@@ -199,8 +199,31 @@ class Data:
         os.remove(path)
         self.df.to_csv(path)
         return "SUCCESS"
+    
+    def remove_rows(self, colName, custom_val):
+        print("called remove rows")
+        df = self.df.dropna(subset=[colName])
+        return df
+    
+    def custom_value(self, colName, custom_val):
+        print("called custom val")
+        return self.df.fillna({colName : custom_val})
+    
+    def average(self, colName, custom_val):
+        print("called average")
+        return self.df.fillna({colName : self.df.mean()[colName]})
 
+    
+    def median(self, colName, custom_val):
+        print("called median")
+        return self.df.fillna({colName : self.df.median()[colName]})
 
+    switcher = { "RemoveRows" : remove_rows,
+                     "CustomValue" : custom_value,
+                     "Average" : average,
+                     "Median" : median}
 
-
-
+    def trimNulls(self, option, colName, custom_val=0):
+        func = self.switcher.get(option, lambda: "Invalid option")
+        return func(self, colName, custom_val)
+    
