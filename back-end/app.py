@@ -21,6 +21,7 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['FILE_NAME'] = UPLOADED_FILE_NAME
+app.config['MAIN_DATA'] = UPLOAD_FOLDER+UPLOADED_FILE_NAME
 app.config['PCA_DATA'] = DOWNLOAD_FOLDER+"/pca_data.csv"
 app.config['MDS_DATA'] = DOWNLOAD_FOLDER+"/mds_data.csv"
 
@@ -137,7 +138,22 @@ def reduceDataDimMDS() :
 @app.route("/checkNulls", methods=["GET"])
 def checkNulls():
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
-    return jsonify({"null_data":data.checkNulls()}),200    
+    df = data.checkNulls()
+    print(jsonify({"null_data" : df}))
+    return jsonify({"null_data":df}),200
+
+@app.route("/trimNulls", methods=["GET"])
+def trimNulls():
+    data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    option = request.args['option']
+    colName = request.args['colName']
+    custom_val = 0
+    if request.args.get('customVal') is not None:
+        custom_val = float(request.args['customVal'])
+    mod_data = data.trimNulls(option, colName, custom_val)
+    os.remove(app.config['MAIN_DATA'])
+    mod_data.to_csv(app.config['MAIN_DATA'], index=False)
+    return jsonify({"messgae" : "successful"}), 200
 
 @app.route("/convertCols", methods=["POST"])
 def convertCols():

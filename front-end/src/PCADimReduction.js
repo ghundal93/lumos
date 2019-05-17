@@ -160,7 +160,6 @@ export default class PCADimReduction extends Component {
 
             let buttonComp;
             if(this.state.download_data == true){
-                var path = this.state.pca_data;
                 //"http://localhost:3000/Users/apekshasinghal/Documents/SBU/Visualization/FinalProject/lumos/back-end/Transformed_data/pca_data.csv"
                 buttonComp = 
                 //<a href={path} download>Download</a>
