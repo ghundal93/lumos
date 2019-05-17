@@ -1,5 +1,6 @@
 .display-flex{
     display: flex;
+    height: inherit
   }
   
   .display-none {
@@ -8,6 +9,14 @@
 
 .add-button {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100% ;
+  }
+
+  .range-slider {
+    width: fit-content;
+    display: inline-block;
     align-items: center;
     justify-content: center;
   }

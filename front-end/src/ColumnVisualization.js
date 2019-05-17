@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import Container from "./Container";
 import InputRange from 'react-input-range';
 import "react-input-range/lib/css/index.css";
@@ -22,7 +22,7 @@ const RangeSliderContainer = styled.div`
 class ColumnVisualization extends Component {
   constructor(props){
     super(props)
-    this.state={cols:[],selected_col:parseInt(props.colID),selected_data:[],nBins:10,shape:props.shape,showAddButton:true,showModal:false}
+    this.state={cols:[],selected_col:parseInt(props.colID),selected_data:[],nBins:5,shape:props.shape,showAddButton:true,showModal:false}
     this.onSliderChange = this.onSliderChange.bind(this);
     this.getColumnNames = this.getColumnNames.bind(this);
     this.showModal = this.showModal.bind(this);
@@ -87,14 +87,20 @@ class ColumnVisualization extends Component {
       }
   };
 
+  // removeChart = () => {
+
+  // }
+
   render() {
     //   console.log("ColNames",this.state.cols)
     //   console.log("selected_col",this.state.selected_col)
     const showHideAddButton = this.state.showAddButton ? this.props.id+" display-flex" : this.props.id + " display-none";
     const showHideGraph = this.state.showAddButton ? this.props.id + " display-none" : this.props.id + " display-block";
     const canvas_className = "cell"+this.props.id+"_"+this.state.shape+"_"+this.state.selected_col.toString()+"_col_viz_canvas"
+    console.log("One Item col width:",this.props.width)
+    console.log("One Item col height:",this.props.h)
     return (
-      <div className="App">
+      <div className="App" style={{width:this.props.width,height:this.props.h}}>
         <div className={showHideAddButton}>
             <div className = "add-button">
                 <button onClick={this.showModal}>Show Modal</button>
@@ -104,14 +110,16 @@ class ColumnVisualization extends Component {
         <div className={showHideGraph}>
             <div className="center-align svg">
             <div className={canvas_className}>
-            <Container onComponentClicked={this.onChartClick.bind(this)} varData={this.state.selected_data} nBins={this.state.nBins} shape = {this.state.shape} containerClass={canvas_className}></Container>
-            </div>
+            <Container varData={this.state.selected_data} nBins={this.state.nBins} shape = {this.state.shape} containerClass={canvas_className} width={this.props.width} height={this.props.h}></Container>
             </div>
             <div>
+              <button onClick={() => {this.setState({showAddButton :true})}}>Remove Chart</button>
+            </div>
+            </div>
+            <div className="range-slider">
             <RangeSliderContainer color="#2B7B65">
-            <div className="slider">
-            <InputRange maxValue={20} minValue={3} value={this.state.nBins} onChange={value => this.onSliderChange(value)}/>
-            </div><br/>
+            <InputRange maxValue={10} minValue={3} value={this.state.nBins} onChange={value => this.onSliderChange(value)}/>
+            <br/>
             </RangeSliderContainer>
             <label >Number of Bins </label>
             </div>

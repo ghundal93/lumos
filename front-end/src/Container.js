@@ -6,6 +6,10 @@ import draw_corr from './chartCorr.js';
 
 
 export default class Container extends Component{
+    constructor(props){
+        super(props);
+        this.state = {width:props.width,height:props.height}
+    }
     componentDidMount(){
         if(this.props.toDraw == "SCATTERPLOT")
             drawScatterPlot(this.props)
@@ -29,7 +33,7 @@ export default class Container extends Component{
     }
     render(){
         return (
-            <div className="container-div"/>
+            <div className="container-div" style={{width:this.state.width,height:this.state.height}}/>
         );
     }
 }

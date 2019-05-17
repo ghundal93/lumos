@@ -209,7 +209,7 @@ function drawPieChart(binArray,nBins,width,height,margin,onComponentClicked,binR
                      
 
     // legend - Followed the tutorial from : http://zeroviscosity.com/d3-js-step-by-step/step-3-adding-a-legend
-    var legendRectSize = 18;
+    var legendRectSize = 10;
     var legendSpacing = 4;
     var legend = svg.selectAll('.legend')
     .data(color.domain())
@@ -243,10 +243,21 @@ const draw = (props) => {
     var sbgContainerClass = "."+props.containerClass
     d3.select(sbgContainerClass+ '>*').remove();
     var data = props.varData;
-    const margin = 50
+    const margin = 20
     var nBins = props.nBins;
-    const w = Math.min(document.documentElement.clientWidth, window.innerWidth || 0) - margin
-    const h = Math.min(document.documentElement.clientHeight, window.innerHeight || 0) - margin
+    const p_w = props.width;
+    const p_h = props.height;
+    var w,h;
+    if(p_w != null && p_h != null){
+        w = p_w - margin;
+        h = p_h - margin;
+    }
+    else {
+        console.log("ELSE CONDITION!!")
+        w = Math.min(document.documentElement.clientWidth, window.innerWidth || 0) - margin
+        h = Math.min(document.documentElement.clientHeight, window.innerHeight || 0) - margin
+    }
+
     var max_d = Number.MIN_SAFE_INTEGER;
     var min_d = Number.MAX_SAFE_INTEGER;
 
