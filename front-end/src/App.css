@@ -1,5 +1,13 @@
+html,body {
+  height: 100%;
+  /* background-color: #1A1A1D; */
+  background-color: 	#F4F4F4;
+}
 .App {
-  text-align: center;
+  /* text-align: center; */
+  /* background-color: #282c34; */
+  
+  height: 100%;
 }
 
 .App-logo {
