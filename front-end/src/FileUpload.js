@@ -7,11 +7,13 @@ constructor(props) {
     super(props);
       this.state = {
         uploadStatus: false,
-        resMessage : ""
+        resMessage : "",
+        filename:""
       }
     this.handleUploadImage = this.handleUploadImage.bind(this);
     // this.uploadInput = React.createRef();
     this.updateParent = this.updateParent.bind(this)
+    this.onInputChange = this.onInputChange.bind(this)
   }
 
 
@@ -31,11 +33,19 @@ constructor(props) {
     this.props.handler("Dashboard")
   }
 
+  onInputChange(event){
+    if (!event.target.files[0]) {
+      return
+    }
+    this.setState({filename:event.target.files[0].name})
+  }
+
   render(){
       return (
       <div className="Upload-button">
-        <h2>Let's Get started! Upload a csv file</h2>
-          <input className="input-button" type="file" id="file" ref={(ref) => { this.uploadInput = ref; }}/>
+        <h2 className="text-color">Let's Get started! Upload a csv file</h2>
+          <input className="input-button" type="file" id="file" onChange={this.onInputChange} ref={(ref) => { this.uploadInput = ref; }}/>
+          <label for="file"><span>{this.state.filename}</span><strong>Choose a file</strong></label>
           <br></br>
           <button className ="submit-button" onClick={this.handleUploadImage}>Upload</button>
       </div>

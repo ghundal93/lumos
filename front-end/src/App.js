@@ -57,11 +57,11 @@ class App extends Component {
 
   render() {
     const Component = (
-      <div>
+      <div className="App">
         <div className="space"/>
         <div style={{display:'flex'}}>
-            <div style={{float:'left',width: 30+ '%'}}><img border="0" alt="Home" src={require("./home_logo.png")} width="60" height="40" onClick={this.handleImageClick} ></img></div>
-            <div style={{float:'center',width: 70 + '%'}}><h2> CSE564 : Visualisation : Data Engineer</h2></div>
+            <div style={{float:'left',width: 30+ '%'}}><img border="0" alt="Home" src={require("./home_logo_2.png")} width="60" height="40" onClick={this.handleImageClick} ></img></div>
+            <div style={{float:'center',width: 70 + '%' ,color:"#C3073F"}}><h2> CSE564 : Visualisation : Data Engineer</h2></div>
         </div>
         <div>
           {this.renderSubComponent()}

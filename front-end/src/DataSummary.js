@@ -133,7 +133,7 @@ export default class DataSummary extends Component{
             <div className="display-flex">
               <div className="row-left">
                 <div>
-                    <label>Numerical:</label>
+                    <h2>Numerical:</h2>
                       <table>
                         <tbody>
                           <tr className = "header">
@@ -162,7 +162,7 @@ export default class DataSummary extends Component{
                   </table>
                   </div>
                 <div>
-                <label>Non - Numerical:</label>
+                <h2>Non - Numerical:</h2>
                     {nn}
                   </div>
               </div>
