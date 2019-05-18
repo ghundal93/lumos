@@ -35,7 +35,7 @@ class Data:
         return self.df.iloc[:,int(colId)].tolist()
 
     def checkNulls(self):
-        return self.df.isna().sum().to_json(orient='records')
+        return self.df.isna().sum().to_json(orient='columns')
     
     def getNonNumCols(self):
         return (self.df.select_dtypes(exclude=np.number)).dtypes.to_json(orient="columns")
@@ -224,6 +224,6 @@ class Data:
                      "Median" : median}
 
     def trimNulls(self, option, colName, custom_val=0):
-        func = self.switcher.get(option, lambda: "Invalid option")
+        func = self.switcher.get(option, lambda : "Invalid option")
         return func(self, colName, custom_val)
     
