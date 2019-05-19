@@ -19,11 +19,6 @@ export default class DataCleaningNulls extends Component{
         this.getColNames();
       }
 
-    //   componentDidMount(){
-    //     this.checkNulls();
-    //     this.getColNames();
-    //   }
-
       checkNulls(){
         fetch("http://127.0.0.1:5000/checkNulls")
         .then(data => data.json())
@@ -101,17 +96,7 @@ export default class DataCleaningNulls extends Component{
                 let selectElem;
                 let buttonElem;
                 let selectCustomValForm;
-
                 
-                // if(countNull > 0 & this.state.trimOption[id] == "CustomValue") {
-                //     selectCustomValForm = <form onSubmit={() => this.performTrim(colName,id)}>
-                //         <label> Enter Value :
-                //             <input type="text" value={this.state.customValue} onChange={this.handleCustomValChange}></input>
-                //         </label>
-                //         <button>Trim</button>
-                //     </form>;
-                // }
-
                 if(countNull > 0) {
                     selectElem =<select className="select-box" id={"select-nulltrim_"+i} value={this.state.trimOption[id]}  onChange={this.onOptionChange.bind(this)}>
                         <option key="0" id="0" value="-- Select an option --" >-- Select an option --</option>

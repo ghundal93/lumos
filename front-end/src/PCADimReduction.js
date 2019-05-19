@@ -7,6 +7,7 @@ import drawLineChart from './linechart.js';
 import draw_corr from './chartCorr.js';
 //import Dummy from './Dummy';
 import './App.css'
+import './PCADimReduction.css'
 
 export default class PCADimReduction extends Component {
     
@@ -163,7 +164,7 @@ export default class PCADimReduction extends Component {
                 //"http://localhost:3000/Users/apekshasinghal/Documents/SBU/Visualization/FinalProject/lumos/back-end/Transformed_data/pca_data.csv"
                 buttonComp = 
                 //<a href={path} download>Download</a>
-                <button onClick={this.downloadPCAPath.bind(this)} >Download!</button>;
+                <button className="download-button" onClick={this.downloadPCAPath.bind(this)} >Download!</button>;
             }
 
             containerComp = <div>
@@ -213,7 +214,7 @@ export default class PCADimReduction extends Component {
         }
         //style={{float:'right',width: 50 + '%'}}
         return(
-            <div>
+            <div className="pca-dim-red">
                 <div>
                     <h2> Select A PCA related task </h2>
                     <select className="select-box" id="select-pca-task" value={this.state.task} onChange={this.onTaskChange.bind(this)} >
