@@ -39,6 +39,9 @@ class Data:
     
     def getNonNumCols(self):
         return (self.df.select_dtypes(exclude=np.number)).dtypes.to_json(orient="columns")
+    
+    def get_data_df(self):
+        return self.df.to_json(orient = 'records')
 
     def reduceDimPCA(self, count=5):
         pca, reduced_data = self.perform_PCA(self.df, int(count))

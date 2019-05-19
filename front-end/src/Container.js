@@ -3,6 +3,7 @@ import draw from './chart.js';
 import drawScatterPlot from './scatterplot.js';
 import drawLineChart from './linechart.js';
 import draw_corr from './chartCorr.js';
+import draw_parrcord from './chartParrCord.js';
 
 
 export default class Container extends Component{
@@ -17,6 +18,10 @@ export default class Container extends Component{
             drawLineChart(this.props)
         else if(this.props.toDraw == "CORR")
             draw_corr(this.props)
+        else if (this.props.toDraw == "PARRCORD")
+        {
+            draw_parrcord(this.props);
+        }
         else
             draw(this.props)
     }
@@ -28,6 +33,9 @@ export default class Container extends Component{
             drawLineChart(this.props)
         else if(this.props.toDraw == "CORR")
             draw_corr(this.props)
+        else if (this.props.toDraw == "PARRCORD") {
+            draw_parrcord(this.props);
+        }
         else
             draw(this.props)
     }
