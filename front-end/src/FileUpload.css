@@ -17,7 +17,8 @@
 }
 
 .input-button + label {
-  border: 1px solid #C3073F;
+  /* border: 1px solid #C3073F; */
+  border: 1px solid black;
   background-color: #f1e5e6;
   padding: 0;
   cursor: pointer;
@@ -36,7 +37,8 @@
 .input-button + label strong {
   height: 100%;
   color: #f1e5e6;
-  background-color: #C3073F;
+  /* background-color: #C3073F; */
+  background-color: black;
   display: inline-block;
 }
 
@@ -70,5 +72,6 @@
   .text-color {
     /* color : #C3073F */
     /* color : #6F2232 */
-    color: #8EE4AF
+    /* color: #8EE4AF */
+    color:black
   }

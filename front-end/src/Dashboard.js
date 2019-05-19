@@ -4,6 +4,7 @@ import './App.css';
 //import './FileUpload.js';
 import DataSummary from './DataSummary.js';
 import DataVisualization from './DataVisualization.js';
+import RelationVisualization from './RelationVisualization.js';
 import PCADimReduction from './PCADimReduction.js';
 import MDSDimReduction from './MDSDimReduction.js';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -98,7 +99,18 @@ export default class Dashboard extends Component{
           </TabPanel>
 
           <TabPanel id="tab_panel_data_visualisation">
-            <DataVisualization/>
+          <Tabs forceRenderTabPanel>
+            <TabList>
+                    <Tab> Dashboard-Columns </Tab>
+                    <Tab> Dashboard - Relations </Tab>
+            </TabList>
+            <TabPanel id="tab_panel_visu_column">
+            <DataVisualization />
+            </TabPanel>
+            <TabPanel id="tab_panel_visu_relation">
+            <RelationVisualization />
+            </TabPanel>
+          </Tabs>
           </TabPanel>
 
 
