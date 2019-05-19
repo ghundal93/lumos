@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import './App.css'
+import './App.css';
 import { normalize } from 'uri-js';
 import './chartCorr.css';
 

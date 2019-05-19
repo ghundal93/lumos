@@ -12,7 +12,8 @@ import "react-tabs/style/react-tabs.css";
 import Correlation from './Correlation';
 import DataCleaningNulls from './DataCleaningNulls';
 import ClusterScreePlot from './ClusterScreePlot';
-import ClusterVisualisation from './ClusterVisualisation'; 
+import ClusterVisualisation from './ClusterVisualisation';
+import ParellelCoordinates from './ParellelCoordinates';
 
 
 export default class Dashboard extends Component{
@@ -61,12 +62,16 @@ export default class Dashboard extends Component{
                     Data Summary
                 </Tab>
                 <Tab>Correlations</Tab>
+                <Tab>Parallel Coordinates</Tab>
               </TabList>
               <TabPanel id="tab_panel_datasummary">
                 <DataSummary/>
               </TabPanel>
               <TabPanel id = "tab_panel_correlations">
                 <Correlation/>
+              </TabPanel>
+              <TabPanel id = "tab_panel_ParrCoord">
+                <ParellelCoordinates/>
               </TabPanel>
             </Tabs>
           </TabPanel>
