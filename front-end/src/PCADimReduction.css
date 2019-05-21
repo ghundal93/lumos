@@ -1,8 +1,7 @@
 .pca-dim-red .download-button {
-    background-color: green;
+    background-color: rgb(47, 73, 114);
     border: none;
     color: white;
-    /* padding: 15px 32px; */
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -10,3 +9,44 @@
     margin: 4px 2px;
     cursor: pointer;
 }
+
+.pca-dim-red .h2 {
+    color: rgb(47, 73, 114)
+}
+
+.pca-dim-red .select-div {
+    float : left;
+    width: 30%;
+    padding-left: 20px
+}
+
+.pca-dim-red {
+    display: flex
+}
+
+.scrollable-table{
+    overflow-y: scroll;
+    height:450px;
+    display:block
+}
+
+.scrollable-table .header-row{
+    background-color: rgb(90, 137, 168);
+    border-color: black;
+    font-size: small;
+    font-weight: bold;
+    color:white
+  }
+  
+  
+  .scrollable-table .odd{
+    background-color: azure;
+    border-color: black;
+    font-size: smaller;
+  }
+  
+  .scrollable-table .even{
+    background-color: wheat;
+    border-color: black;
+    font-size: smaller;
+  }

@@ -1,6 +1,6 @@
-import * as d3 from 'd3';
+import * as d3 from 'd3-v5';
 import './App.css';
-import { normalize } from 'uri-js';
+import { normalize } from '../node_modules/uri-js/dist/es5/uri.all';
 import './chartCorr.css';
 
 //Correlation Table

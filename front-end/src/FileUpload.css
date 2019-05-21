@@ -1,10 +1,13 @@
 .Upload-button {
-
+  position: absolute;
+    padding-left: 40px;
+    float: left;
     justify-content: top;
     align-items: top;
-    text-align: center;
+    text-align: left;
     min-height: 100vh;
 }
+
 .input-button{
     /* position: relative;
     left: 40px; */
@@ -24,6 +27,10 @@
   cursor: pointer;
 }
 
+.main-heading{
+  color: cyan
+}
+
 .input-button + label span {
   width: 200px;
   min-height: 2em;
@@ -36,20 +43,15 @@
 
 .input-button + label strong {
   height: 100%;
-  color: #f1e5e6;
+  color:black;
   /* background-color: #C3073F; */
-  background-color: black;
+  background-color: cyan;
   display: inline-block;
 }
 
 
-/* .input-button:focus + label,
-.input-button + label:hover {
-  background-color: red;
-} */
-
 .submit-button {
-    background-color: #4CAF50;
+    background-color: darkseagreen;
     border: none;
     color: white;
     padding: 10px 25px;
@@ -61,6 +63,17 @@
     cursor: pointer;
   }
 
+  .home-page-bg {
+    position: absolute;
+    background-image: url("Front_backgrnd.jpg");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 800px 900px;
+    background-color: rgb(47, 73, 114);
+    height: 100%;
+    width: 100%
+  }
+
   .container {
     height: 80vh; /* Magic here */
     display: flex;
@@ -69,9 +82,7 @@
     width: 100vh;
   }
 
-  .text-color {
-    /* color : #C3073F */
-    /* color : #6F2232 */
-    /* color: #8EE4AF */
-    color:black
+  h2 {
+
+    color: darkseagreen
   }

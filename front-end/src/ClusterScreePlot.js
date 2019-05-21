@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import axios from '../node_modules/axios';
 import Container from './Container';
 import Loader from 'react-loader-spinner';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './ModalChooseTwoColumns.css';
-import Button from 'react-bootstrap/Button';
+import Button from '../node_modules/react-bootstrap/Button';
 
 export default class ModalChooseTwoColumns extends Component{
     constructor(props){

@@ -1,13 +1,14 @@
 html,body {
   height: 100%;
   /* background-color: #1A1A1D; */
-  background-color: 	#F4F4F4;
+  background-color:rgb(211, 220, 226);
 }
 .App {
-  /* text-align: center; */
-  /* background-color: #282c34; */
-  
   height: 100%;
+}
+
+h2 {
+  color:rgb(47, 73, 114)
 }
 
 .App-logo {
@@ -59,11 +60,12 @@ html,body {
 }
 
 .header-row{
-  background-color: yellowgreen;
+  background-color: rgb(90, 137, 168);
   border-color: black;
   font-size: small;
   font-weight: bold;
-  width: 75px
+  width: 75px;
+  color:white
 }
 
 
@@ -77,12 +79,6 @@ html,body {
   background-color: wheat;
   border-color: black;
   font-size: smaller;
-}
-
-.scrollable-table{
-  overflow-y: scroll;
-  height:350px;
-  display:block
 }
 
 .display-flex{

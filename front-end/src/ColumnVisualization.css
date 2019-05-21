@@ -15,7 +15,7 @@
   }
 
 .add-button-style {
-  background-color: blue;
+  background-color:rgb(90, 137, 168);
   border: none;
   color: white;
   /* padding: 15px 32px; */
@@ -25,7 +25,7 @@
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  border-radius: 25px;
+  border-radius: 10px;
 }
 
   .range-slider {

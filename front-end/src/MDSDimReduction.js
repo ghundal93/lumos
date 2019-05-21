@@ -83,14 +83,14 @@ export default class MDSDimReduction extends Component{
 
             <div>
                 <div className="mds-dim-red">
-                    <h2> Select A Distance Matrix for MDS </h2>
+                    <h2 className="h2"> Select A Distance Matrix for MDS </h2>
                     <select className="select-box" id="select-mds-mat" value={this.state.matrix} onChange={this.onMatChange.bind(this)} >
                     <option key='0' id='0' value='-- Select --'>-- Select --</option>
                     <option key='1' id='1' value='euclidean'>Euclidean</option>
                     <option key='2' id='2' value='correlation'>Correlation</option>
                     </select>
 
-                    <h2> Select Dimension count for MDS </h2>
+                    <h2 className="h2"> Select Dimension count for MDS </h2>
                     <select className="select-box" id="select-mds-count" value={this.state.count} onChange={this.onCountChange.bind(this)}>
                     {option_list}
                     </select>

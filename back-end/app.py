@@ -83,7 +83,7 @@ def getFileData() :
 def getDataDf() :
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
     data_df = data.get_data_df()
-    print(data_df)
+    #print(data_df)
     return jsonify({"data_df": data_df}),200
 
 @app.route("/getColNames",methods=["GET"])
