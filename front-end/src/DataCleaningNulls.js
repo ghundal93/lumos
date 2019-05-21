@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './App.css'
 
 export default class DataCleaningNulls extends Component{
     constructor(props) {
@@ -125,8 +126,8 @@ export default class DataCleaningNulls extends Component{
                 </tr>);
             }
         return(
-            <div>
-                <table>
+            <div className="clean-display-flex">
+                <table className="table">
                     <tbody>
                         {trs}
                     </tbody>
