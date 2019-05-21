@@ -7,7 +7,8 @@ import "react-input-range/lib/css/index.css";
 import styled from 'styled-components';
 import ModalChooseColumn from './ModalChooseColumn';
 import './ColumnVisualization.css'
-// import { Dropdown } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import "react-tabs/style/react-tabs.css";
 const RangeSliderContainer = styled.div`
 .input-range__track--active,
 .input-range__slider {
@@ -46,11 +47,6 @@ class ColumnVisualization extends Component {
     .then(res => this.setState({ selected_data:res.selected_data,selected_col:colId}));       
   }
 
-  onColBoxChange(e){
-    var colId = e.target.value;
-    this.getSelectedColumnData(colId)
-  }
-
   onTypeBoxChange(e){
     // console.log("TYPE" , e.target.value)
     this.setState({shape:e.target.value})
@@ -87,13 +83,8 @@ class ColumnVisualization extends Component {
       }
   };
 
-  // removeChart = () => {
-
-  // }
 
   render() {
-    //   console.log("ColNames",this.state.cols)
-    //   console.log("selected_col",this.state.selected_col)
     const showHideAddButton = this.state.showAddButton ? this.props.id+" display-flex" : this.props.id + " display-none";
     const showHideGraph = this.state.showAddButton ? this.props.id + " display-none" : this.props.id + " display-block";
     const canvas_className = "cell"+this.props.id+"_"+this.state.shape+"_"+this.state.selected_col.toString()+"_col_viz_canvas"
@@ -103,7 +94,7 @@ class ColumnVisualization extends Component {
       <div className="App" style={{width:this.props.width,height:this.props.h}}>
         <div className={showHideAddButton}>
             <div className = "add-button">
-                <button onClick={this.showModal}>Show Modal</button>
+                <button className="add-button-style" onClick={this.showModal}>Add Chart</button>
             </div>
             <ModalChooseColumn show={this.state.showModal} handleClose={this.hideModal}/>
         </div>

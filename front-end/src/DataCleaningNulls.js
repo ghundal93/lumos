@@ -6,15 +6,15 @@ export default class DataCleaningNulls extends Component{
         this.state = {
             null_data : [],
             cols: [],
-            trimOption : "-- Select an option --",
-            customValue: 0
+            trimOption : [],
+            customValue: [],
+            optionList: ["-- Select an option --","RemoveRows","CustomValue","Average","Median"]
         };
         this.performTrim = this.performTrim.bind(this);
         this.checkNulls = this.checkNulls.bind(this);
         this.handleCustomValChange = this.handleCustomValChange.bind(this);
-      }
-
-      componentDidMount(){
+        this.getColNames = this.getColNames.bind(this);
+        this.updateStateAfter = this.updateStateAfter.bind(this);
         this.checkNulls();
         this.getColNames();
       }
@@ -22,7 +22,20 @@ export default class DataCleaningNulls extends Component{
       checkNulls(){
         fetch("http://127.0.0.1:5000/checkNulls")
         .then(data => data.json())
-        .then(res => this.setState({ null_data:JSON.parse(res.null_data)}));
+        .then((res) => {this.updateStateAfter(res)});
+      }
+
+      updateStateAfter(res) {
+          console.log("Updating state after check null")
+          const null_data = JSON.parse(res.null_data);
+          var arr = []
+          var arr_cval = []
+          Object.keys(null_data).map(function (key){
+              arr.push("-- Select an option --");
+              arr_cval.push(0)
+          })
+        this.setState({ null_data:null_data,trimOption:arr,customValue:arr_cval});
+
       }
 
       getColNames(){
@@ -32,13 +45,18 @@ export default class DataCleaningNulls extends Component{
       }
 
       onOptionChange(e) {
-          this.setState({trimOption : e.target.value});
+          var oldTrimOption = this.state.trimOption;
+          var id = parseInt(e.target.id.split("_")[1]);
+          oldTrimOption[id] = e.target.value;
+          this.setState({trimOption : oldTrimOption});
       }
 
       
-      performTrim(colName) {
-        var option = this.state.trimOption;
-        const customValue = this.state.customValue;
+      performTrim(colName,i) {
+          console.log("Callling trim on col: ,",i)
+        var option = this.state.trimOption[parseInt(i)];
+        console.log("Option:" ,option)
+        const customValue = this.state.customValue[parseInt(i)];
         if(isNaN(parseFloat(customValue))) {
             alert("Please enter a number for custom value");
         } else {
@@ -52,7 +70,10 @@ export default class DataCleaningNulls extends Component{
       }
 
       handleCustomValChange(e) {
-          this.setState({customValue : e.target.value});
+          var oldCVal = this.state.customValue;
+          var id = parseInt(e.target.id.split("_")[1]);
+          oldCVal[id] = e.target.value
+          this.setState({customValue : oldCVal});
       }
 
       render(){
@@ -68,25 +89,16 @@ export default class DataCleaningNulls extends Component{
                     </tr>);
             const numRows = cols.length;
             for(var i = 0; i < numRows; i++){
+                const id = i;
                 const colName = cols[i];
-                const countNull = nullData[i];
+                const countNull = nullData[colName];
                 
                 let selectElem;
                 let buttonElem;
                 let selectCustomValForm;
-
-                /*
-                if(countNull > 0 & this.state.trimOption == "CustomValue") {
-                    selectCustomValForm = <form onSubmit={() => this.performTrim(colName)}>
-                        <label> Enter Value :
-                            <input type="text" value={this.state.customValue} onChange={this.handleCustomValChange}></input>
-                        </label>
-                        <button>Trim</button>
-                    </form>;
-                }*/
-
+                
                 if(countNull > 0) {
-                    selectElem =<select className="select-box" id="select-nulltrim" value={this.state.trimOption}  onChange={this.onOptionChange.bind(this)}>
+                    selectElem =<select className="select-box" id={"select-nulltrim_"+i} value={this.state.trimOption[id]}  onChange={this.onOptionChange.bind(this)}>
                         <option key="0" id="0" value="-- Select an option --" >-- Select an option --</option>
                         <option key="1" id="1" value="RemoveRows" >Remove Rows</option>
                         <option key="2" id="2" value="CustomValue" >Custom Value</option>
@@ -95,8 +107,13 @@ export default class DataCleaningNulls extends Component{
                     </select>;
                 }
 
-                if(countNull > 0 & this.state.trimOption != "-- Select an option --" & this.state.trimOption != "CustomValue") {
-                    buttonElem = <button onClick= {() => this.performTrim(colName)}>Trim</button>;
+                if(countNull > 0 & this.state.trimOption[id] != "-- Select an option --") {
+                    if(this.state.trimOption[id] == "CustomValue"){
+                        selectCustomValForm = <label> Enter Value :
+                            <input type="text" id={"custom-val-trim_"+i} value={this.state.customValue[id]} onChange={this.handleCustomValChange}></input>
+                        </label>;
+                    }
+                    buttonElem = <button onClick= {() => this.performTrim(colName,id)}>Trim</button>;
                 }
                 var className = "even";
                 if(i%2 != 0){
@@ -104,7 +121,7 @@ export default class DataCleaningNulls extends Component{
                 }
                 trs.push(<tr className={className}>
                 <td>{colName}</td>
-                <td>{countNull.toString()}  {selectElem} {selectCustomValForm} {buttonElem}</td>
+                <td>{countNull}  {selectElem} {selectCustomValForm} {buttonElem}</td>
                 </tr>);
             }
         return(
