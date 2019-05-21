@@ -139,6 +139,7 @@ class Data:
         return mds_df
     
     def performKMeans(self, k):
+        self.df = self.df[self.df.notnull()]
         data_2D = PCA(n_components=2).fit(self.df).transform(self.df)
         kmeans = KMeans(n_clusters=int(k), random_state=111)
         kmeans.fit(self.df)
