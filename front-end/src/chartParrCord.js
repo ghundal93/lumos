@@ -1,4 +1,4 @@
-import d3 from 'd3';
+import d3 from '../node_modules/d3/d3';
 import './App.css';
 import './chartParrCord.css';
 

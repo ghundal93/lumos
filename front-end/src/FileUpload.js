@@ -42,13 +42,28 @@ constructor(props) {
 
   render(){
       return (
-      <div className="Upload-button">
-        <h2 className="text-color">Let's Get started! Upload a csv file</h2>
+        <div>
+        <div className="home-page-bg" >
+        </div>
+        <div className="Upload-button">
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <h1 className="main-heading"> CSE564 : Data Engineer </h1>
+        
+        <h2>Let's Get started! Upload a csv file</h2>
           <input className="input-button" type="file" id="file" onChange={this.onInputChange} ref={(ref) => { this.uploadInput = ref; }}/>
-          <label for="file"><span>{this.state.filename}</span><strong>Choose a file</strong></label>
+          <label for="file"><span>{this.state.filename}</span><strong>Browse</strong></label>
           <br></br>
           <button className ="submit-button" onClick={this.handleUploadImage}>Upload</button>
-      </div>
+        </div>
+        </div>
+        
       )
   }
 }

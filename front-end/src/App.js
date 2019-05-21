@@ -5,7 +5,7 @@ import './FileUpload.js';
 import DataSummary from './DataSummary.js';
 import DataVisualization from './DataVisualization.js';
 import FileUpload from './FileUpload.js';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs/lib';
 import "react-tabs/style/react-tabs.css";
 import Dashboard from './Dashboard';
 
@@ -56,13 +56,18 @@ class App extends Component {
   }
 
   render() {
+    let titles;
+    if(this.state.showPage != "UPLOAD"){
+      titles  = 
+      <div style={{display:'flex'}}>
+      <div style={{float:'left',width: 30+ '%'}}><img border="0" alt="Home" src={require("./home_logo.png")} width="50" height="50" onClick={this.handleImageClick} ></img></div>
+      <div style={{float:'center',width: 70 + '%'}}><h2 style={{color:"rgb(47, 73, 114)"}}> CSE564 : Visualisation : Data Engineer</h2></div>
+      </div>
+    }
     const Component = (
       <div className="App">
         <div className="space"/>
-        <div style={{display:'flex'}}>
-            <div style={{float:'left',width: 30+ '%'}}><img border="0" alt="Home" src={require("./home_logo_2.png")} width="60" height="40" onClick={this.handleImageClick} ></img></div>
-            <div style={{float:'center',width: 70 + '%' ,color:"black"}}><h2> CSE564 : Visualisation : Data Engineer</h2></div>
-        </div>
+        {titles}
         <div>
           {this.renderSubComponent()}
         </div>
