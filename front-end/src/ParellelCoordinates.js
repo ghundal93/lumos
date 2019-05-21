@@ -99,7 +99,7 @@ export default class ParellelCoordinates extends Component {
 
         return ( <div  style={{display:'flex'}}>
             
-            <div style={{float:'left',width: 30+ '%'}}>
+            <div style={{float:'left',width: 20+ '%'}}>
             <h4> Check upto 5 columns and hit draw!</h4>
             <form onSubmit={this.handleFormSubmit}>
                 {formComp}
@@ -107,7 +107,7 @@ export default class ParellelCoordinates extends Component {
             </form>
             </div>
             {containerElem}
-            <div class='canvas-parcord' style={{float:'center',width: 70+ '%'}}>
+            <div class='canvas-parcord' style={{float:'center',width: 80+ '%'}}>
             </div>
             </div>
         );

@@ -4,13 +4,13 @@ svg {
   
   .background path {
     fill: none;
-    stroke: gray;
     shape-rendering: crispEdges;
+    stroke: white
   }
   
   .foreground path {
     fill: none;
-    stroke: steelblue;
+    stroke: rgb(104, 138, 40);
   }
   
   .brush .extent {
