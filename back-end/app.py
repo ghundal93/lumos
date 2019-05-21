@@ -166,7 +166,12 @@ def convertCols():
     r_data = request.get_json()
     print("COLS",r_data["cols"])
     data = Data.Data(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
-    return jsonify({"message":data.removeNonNumCols(r_data["cols"],os.path.join(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] ))}),200   
+    return jsonify({"message":data.removeNonNumCols(r_data["cols"],os.path.join(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] ))}),200 
+
+@app.route("/downloadData", methods=["GET"])
+def downloadData():
+    path = os.path.join(app.config['UPLOAD_FOLDER'], app.config['FILE_NAME'] )
+    return (send_file(path))  
 
 if __name__ == "__main__":
     data = None
