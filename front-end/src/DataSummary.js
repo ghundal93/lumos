@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import axios from '../node_modules/axios';
 import "react-tabs/style/react-tabs.css";
 import './DataSummary.css'
 
@@ -133,7 +133,7 @@ export default class DataSummary extends Component{
             <div className="display-flex">
               <div className="row-left">
                 <div>
-                    <h2>Numerical:</h2>
+                    <h2 style={{color :"rgb(47, 73, 114)"}}>  Numerical  </h2>
                       <table>
                         <tbody>
                           <tr className = "header">
@@ -162,7 +162,7 @@ export default class DataSummary extends Component{
                   </table>
                   </div>
                 <div>
-                <h2>Non - Numerical:</h2>
+                <h2 style={{color: "rgb(47, 73, 114)"}}>  Non - Numerical  </h2>
                     {nn}
                   </div>
               </div>

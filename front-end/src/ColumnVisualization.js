@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import Container from "./Container";
 import InputRange from 'react-input-range';
 import "react-input-range/lib/css/index.css";
-import styled from 'styled-components';
+import styled from 'styled-components/dist/styled-components.cjs';
 import ModalChooseColumn from './ModalChooseColumn';
 import './ColumnVisualization.css'
 import Button from 'react-bootstrap/Button';

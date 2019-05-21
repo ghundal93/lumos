@@ -1,6 +1,6 @@
-import * as d3 from 'd3';
+import * as d3 from 'd3-v5';
 import './App.css'
-import { normalize } from 'uri-js';
+import { normalize } from '../node_modules/uri-js/dist/es5/uri.all';
 
 // Bar Chart
 function drawBarChart(binArray, margin,barSep,nBins,w,h,onComponentClicked,binRange,sbgContainerClass){
@@ -144,6 +144,7 @@ function drawPieChart(binArray,nBins,width,height,margin,onComponentClicked,binR
         .outerRadius(radius - 40)
         .innerRadius(radius - 40);
     
+
     // generate pie chart
     var pie = d3.pie()
         .sort(null)

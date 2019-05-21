@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import * as d3 from 'd3-v5';
 import './App.css'
 
 const drawScatterPlot = (props) => {
@@ -129,9 +129,10 @@ const drawScatterPlot = (props) => {
       svg.append("text")             
       .attr("transform",
               "translate(" + (width/2) + " ," + 
-                          (height + margin.top + 50) + ")")
+                          (height + margin.top) + ")")
       .style("text-anchor", "middle")
-      .style("fill", "Blue")
+      .style("fill", "rgb(112, 122, 68)")
+      .style("font-size", "16px") 
       .text(xLabel);
 
       svg.append("text")
@@ -140,16 +141,17 @@ const drawScatterPlot = (props) => {
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .style("fill", "Blue")
+      .style("fill", "rgb(112, 122, 68)")
+      .style("font-size", "15px") 
       .text(yLabel);
 
       svg.append("text")
       .attr("x", (width / 2))             
       .attr("y", 0 - (margin.top / 2))
-      .attr("text-anchor", "middle")  
-      .style("font-size", "16px")
-      .style("fill", "Blue")
-      .style("text-decoration", "underline")  
+      .attr("text-anchor", "middle")
+      .style("font-size", "16px") 
+    .style("fill", "rgb(112, 122, 68)")
+    .style("font-weight", "Bold") 
       .text(titleGraph);
 
 }
