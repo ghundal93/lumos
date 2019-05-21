@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import * as d3 from 'd3-v5';
 import './App.css'
 import './linechart.css'
 
