@@ -5,9 +5,24 @@ const drawScatterPlot = (props) => {
 
     var data = props.data
     var sbgContainerClass = "."+props.containerClass
-    var margin = {top: 30, right: 20, bottom: 30, left: 50},
-    width = 600 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    var margin = {top: 30, right: 20, bottom: 30, left: 50}
+    var margin_big = {top: 30, right: 100, bottom: 60, left: 100}
+    const p_w = props.width;
+    const p_h = props.height;
+    var width,height;
+    if(p_w != null && p_h != null){
+        console.log("IF CONDITION: p_width,",p_w)
+        console.log("IF CONDITION: p_height,",p_w)
+        width = p_w -  margin_big.left - margin_big.right;
+        height = p_h - margin_big.top - margin_big.bottom;
+        console.log("IF CONDITION: width,",width)
+        console.log("IF CONDITION: height,",height)
+    }
+    else {
+        console.log("ELSE CONDITION!!")
+        width = 600 - margin.left - margin.right;
+        height = 500 - margin.top - margin.bottom;
+    }
     var xLabel = props.xLabel;
     var yLabel = props.yLabel;
     var colorCoding = props.colorCoding;
@@ -37,6 +52,8 @@ const drawScatterPlot = (props) => {
         }
     }
     // console.log("label Data "+label_data);
+    console.log("x data",x_data)
+    console.log("y data",y_data)
     
     var x = d3.scaleLinear().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);

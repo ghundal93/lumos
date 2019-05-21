@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './ModalChooseColumn.css';
+import Button from 'react-bootstrap/Button';
 
 export default class ModalChooseColumn extends Component{
     constructor(props){
@@ -49,7 +50,7 @@ export default class ModalChooseColumn extends Component{
         return(
             <div className={showHideClassName}>
                 <section className="modal-main">
-                    <div>
+                    <div className="row">
                         <p className = "select-column">Select a column:</p>
                         <select className="select-box" id="parent_select_col_box" value={this.state.selected_col} onChange={this.onColBoxChange.bind(this)} >
                         {
@@ -59,15 +60,17 @@ export default class ModalChooseColumn extends Component{
                         }
                         </select>
                     </div>
-                    <div>
+                    <div className="row">
                         <p className = "select-column">Select chart type:</p>
                         <select className="select-box" id="parent_select_type_box" value={this.state.shape} onChange={this.onTypeBoxChange.bind(this)} >
                         <option key="BAR" id="BAR" value="BAR">BAR CHART</option>
                         <option key="CIRCLE" id="CIRCLE" value="CIRCLE">PIE CHART</option>
                         </select>
+                    </div>
+                    <div className="row">
+                        <button className="add-button" onClick={this.onAddButtonClick}> ADD </button>               
+                        <button className="close-button" onClick={this.props.handleClose}>CLOSE</button>
                     </div>  
-                <button onClick={this.onAddButtonClick}> ADD </button>               
-                <button onClick={this.props.handleClose}>CLOSE</button>
                 </section>
             </div>
         )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Container from './Container';
+import './MDSDimReduction.css'
 
 export default class MDSDimReduction extends Component{
     constructor(){
@@ -67,9 +67,9 @@ export default class MDSDimReduction extends Component{
     render() {
         let buttonComp;
         if(this.state.download_data == true) {
-            buttonComp = <button onClick={this.downloadFilePath.bind(this)} >Download!</button>;
+            buttonComp = <button className="download-button" onClick={this.downloadFilePath.bind(this)} >Download!</button>;
         } else {
-            buttonComp = <button onClick={this.performMDS.bind(this)} >Perform MDS</button>;
+            buttonComp = <button className="perform-mds" onClick={this.performMDS.bind(this)} >Perform MDS</button>;
         }
 
         var option_list = [];
@@ -82,7 +82,7 @@ export default class MDSDimReduction extends Component{
             
 
             <div>
-                <div>
+                <div className="mds-dim-red">
                     <h2> Select A Distance Matrix for MDS </h2>
                     <select className="select-box" id="select-mds-mat" value={this.state.matrix} onChange={this.onMatChange.bind(this)} >
                     <option key='0' id='0' value='-- Select --'>-- Select --</option>

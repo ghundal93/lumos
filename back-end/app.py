@@ -159,7 +159,7 @@ def trimNulls():
     mod_data = data.trimNulls(option, colName, custom_val)
     os.remove(app.config['MAIN_DATA'])
     mod_data.to_csv(app.config['MAIN_DATA'], index=False)
-    return jsonify({"messgae" : "successful"}), 200
+    return jsonify({"messgae" : "successful"}),200
 
 @app.route("/convertCols", methods=["POST"])
 def convertCols():

@@ -40,6 +40,8 @@ export default class Container extends Component{
             draw(this.props)
     }
     render(){
+        console.log("In Container width",this.state.width)
+        console.log("In Container height",this.state.height)
         return (
             <div className="container-div" style={{width:this.state.width,height:this.state.height}}/>
         );
