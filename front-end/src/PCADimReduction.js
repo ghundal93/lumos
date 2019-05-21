@@ -6,7 +6,7 @@ import drawScatterPlot from './scatterplot.js';
 import drawLineChart from './linechart.js';
 import draw_corr from './chartCorr.js';
 //import Dummy from './Dummy';
-import './App.css'
+//import './App.css'
 import './PCADimReduction.css'
 
 export default class PCADimReduction extends Component {
@@ -144,8 +144,8 @@ export default class PCADimReduction extends Component {
                 trs.push(<tr className={className}>{tds}</tr>);
             }
 
-            containerComp =<div style={{'margin-left': '100px'}}>
-                <h2> Significance of various features on principle components </h2>
+            containerComp =<div style={{float : "right"}}>
+                <h2 className="h2"> Significance of various features on principle components </h2>
                 <table>
                 <tbody>
                 {trs}
@@ -168,7 +168,7 @@ export default class PCADimReduction extends Component {
             }
 
             containerComp = <div>
-            <h2> Select count of principle components </h2>
+            <h2 className="h2"> Select count of principle components </h2>
             <select className="select-box" id="select-pca-count" value={this.state.pca_count} onChange={this.onCountChange.bind(this)}>
             {option_list}
             </select>
@@ -180,16 +180,16 @@ export default class PCADimReduction extends Component {
             var numRows = Object.keys(Object.values(comp_score)[0]).length;
 
             var trs = [];
-
+            let header;
             var tds_header = [];
             tds_header.push(<th className='header-row'>Data Index</th>);
             for (var j=1; j <= numCols; j++){
                 var name = 'PCA'+j.toString();
                 tds_header.push(<th className='header-row'>{name}</th>);
             }
-            trs.push(<tr style={{'position':"fixed"}}>
+            header = <thead style={{'position':"fixed"}}><tr>
                {tds_header}
-                </tr>);
+                </tr></thead>;
 
             for(var i=0; i < numRows; i++){
                 var tds = [];
@@ -201,10 +201,11 @@ export default class PCADimReduction extends Component {
                 trs.push(<tr className={className}>{tds}</tr>);
             }
 
-            containerComp =<div style={{'margin-left': '100px'}}>
-                <h2> Significance of various features on principle components </h2>
-                <table >
-                <tbody className='scrollable-table'>
+            containerComp =<div style={{'float' : "right", 'width':"75%"}}>
+                <h2 className="h2"> Significance of various features on principle components </h2>
+                <table className='scrollable-table'>
+                {header}
+                <tbody >
                 {trs}
                 </tbody>
                 </table>
@@ -215,8 +216,8 @@ export default class PCADimReduction extends Component {
         //style={{float:'right',width: 50 + '%'}}
         return(
             <div className="pca-dim-red">
-                <div>
-                    <h2> Select A PCA related task </h2>
+                <div className="select-div">
+                    <h2 className="h2"> Select A PCA related task </h2>
                     <select className="select-box" id="select-pca-task" value={this.state.task} onChange={this.onTaskChange.bind(this)} >
                     <option key='0' id='0' value='-- Select --'>-- Select --</option>
                     <option key='1' id='1' value='View Scree Plot'>View Scree Plot</option>

@@ -7,7 +7,7 @@ import DataVisualization from './DataVisualization.js';
 import RelationVisualization from './RelationVisualization.js';
 import PCADimReduction from './PCADimReduction.js';
 import MDSDimReduction from './MDSDimReduction.js';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs/lib';
 import "react-tabs/style/react-tabs.css";
 import Correlation from './Correlation';
 import DataCleaningNulls from './DataCleaningNulls';

@@ -130,6 +130,7 @@ const drawLineChart = (props) => {
         .attr("y", -50)
         .style("text-anchor", "end")
         .text("Elbow point :"+elbow_point)
+        .style("font-size", "10px") 
         .style("fill", "Red");
 
     // Add the Y Axis
@@ -141,16 +142,17 @@ const drawLineChart = (props) => {
         .attr("class", "label")
         .attr("transform", "rotate(-90)")
         .attr("y", 6)
-        .attr("dy", ".71em")
+        .attr("dy", "10em")
         .style("text-anchor", "end")
         .text("Variance");
 
         svg.append("text")             
         .attr("transform",
                 "translate(" + (width/2) + " ," + 
-                            (height + margin.top + 20) + ")")
+                            (height + margin.top) + ")")
         .style("text-anchor", "middle")
-        .style("fill", "blue")
+        .style("fill", "rgb(112, 122, 68)")
+        .style("font-size", "15px") 
         .text(xLabel);
   
         svg.append("text")
@@ -159,7 +161,8 @@ const drawLineChart = (props) => {
         .attr("x",0 - (height / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .style("fill", "blue")
+        .style("font-size", "15px") 
+        .style("fill", "rgb(112, 122, 68)")
         .text(yLabel);
   
         svg.append("text")
@@ -167,8 +170,8 @@ const drawLineChart = (props) => {
         .attr("y", 0 - (margin.top / 2))
         .attr("text-anchor", "middle")  
         .style("font-size", "16px") 
-        .style("fill", "blue")
-        .style("text-decoration", "underline")  
+        .style("fill", "rgb(112, 122, 68)")
+        .style("font-weight", "Bold")
         .text(titleGraph);
 }
 export default drawLineChart;

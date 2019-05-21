@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from '../node_modules/react';
 import Checkbox from './Checkbox';
 import Container from './Container';
 
@@ -99,15 +99,15 @@ export default class ParellelCoordinates extends Component {
 
         return ( <div  style={{display:'flex'}}>
             
-            <div style={{float:'left',width: 20+ '%'}}>
-            <h4> Check upto 5 columns and hit draw!</h4>
+            <div style={{float:'left',width: 25+ '%'}}>
+            <h4 style={{color:'rgb(47, 73, 114)'}}> Check upto 5 columns and hit draw!</h4>
             <form onSubmit={this.handleFormSubmit}>
                 {formComp}
                 <button type="submit">Draw</button>
             </form>
             </div>
             {containerElem}
-            <div class='canvas-parcord' style={{float:'center',width: 80+ '%'}}>
+            <div class='canvas-parcord' style={{float:'center',width: 75+ '%'}}>
             </div>
             </div>
         );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs/lib';
 import "react-tabs/style/react-tabs.css";
 import Dashboard from './Dashboard';
 import Container from "./Container";

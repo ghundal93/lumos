@@ -1,8 +1,9 @@
 .header{
-    background-color: yellowgreen;
+    background-color: rgb(90, 137, 168);
     border-color: black;
-    font-size: small;
-    font-weight: bold
+    font-size: medium;
+    font-weight: bold;
+    color: rgb(222, 228, 232)
 }
 
 .odd{
