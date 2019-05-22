@@ -1,5 +1,19 @@
 import * as d3 from 'd3-v5';
 import './App.css'
+// import {Spinner} from 'spin.js';
+
+//ref : http://bl.ocks.org/eesur/cf81a5ea738f85732707
+// loader settings
+var opts = {
+    lines: 9, // The number of lines to draw
+    length: 9, // The length of each line
+    width: 5, // The line thickness
+    radius: 14, // The radius of the inner circle
+    color: '#EE3124', // #rgb or #rrggbb or array of colors
+    speed: 1.9, // Rounds per second
+    trail: 40, // Afterglow percentage
+    className: 'spinner', // The CSS class to assign to the spinner
+  };
 
 const drawScatterPlot = (props) => {
 
@@ -84,24 +98,29 @@ const drawScatterPlot = (props) => {
     */
     var xMap = function(d) { return x(parseFloat(d.key));};
     var yMap = function(d) { return y(d.value);};
-    
-    svg.selectAll(".dot")
-          .data(data_list)
-        .enter().append("circle")
-          .attr("class", "dot")
-          .attr("r", 3.5)
-          .attr("cx", xMap)
-          .attr("cy", yMap)
-          .style("fill", function(d, i){
-                        if(colorCoding == 'true'){
-                            // console.log(" color assigned  is "+color(label_data[i]));
-                            return color(label_data[i]);
-                        }
-                        else{
-                            return("steelblue");
-                        }
-                });
-    
+    // var spinner = new Spinner().spin();
+    // if(x_data.length == 0){
+    //     d3.select("svg").node().append(spinner.el);
+    // }
+    // else{
+        // spinner.stop()
+        svg.selectAll(".dot")
+            .data(data_list)
+            .enter().append("circle")
+            .attr("class", "dot")
+            .attr("r", 3.5)
+            .attr("cx", xMap)
+            .attr("cy", yMap)
+            .style("fill", function(d, i){
+                            if(colorCoding == 'true'){
+                                // console.log(" color assigned  is "+color(label_data[i]));
+                                return color(label_data[i]);
+                            }
+                            else{
+                                return("steelblue");
+                            }
+                    });
+        // }
       // Add the X Axis
       svg.append("g")
           .attr("class", "x axis")

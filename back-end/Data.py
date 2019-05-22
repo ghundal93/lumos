@@ -44,6 +44,7 @@ class Data:
         return self.df.to_json(orient = 'records')
 
     def reduceDimPCA(self, count=5):
+        self.df = self.df.dropna()
         pca, reduced_data = self.perform_PCA(self.df, int(count))
         # print("shape of reduced_data : ",reduced_data.shape," and type : ",type(reduced_data))
         df_dict = {}
@@ -54,6 +55,7 @@ class Data:
         return pca_df
 
     def performPCA(self, nC=5):
+        self.df = self.df.dropna()
         #Code generating data for scree plot
         result_dict, elbow_point, loadings = self.draw_scree_plot(self.df, int(nC))
         # print("result data: ", result_dict," elbow point : ",elbow_point)
@@ -121,6 +123,7 @@ class Data:
         return pca, dataset
 
     def reduceDimMDS(self, matrix='euclidean', comp=2):
+        self.df = self.df.dropna()
         dissimilarity = matrix
         embeddings = pd.DataFrame()
         data_df = self.df
@@ -139,6 +142,7 @@ class Data:
         return mds_df
     
     def performKMeans(self, k):
+        self.df = self.df.dropna()
         data_2D = PCA(n_components=2).fit(self.df).transform(self.df)
         kmeans = KMeans(n_clusters=int(k), random_state=111)
         kmeans.fit(self.df)
@@ -174,6 +178,7 @@ class Data:
         return result_dict_pca , pca_label_dict, result_dict_euc, mds_euc_label_dict, result_dict_corr, mds_corr_label_dict
     
     def kmeans_screePlot(self):
+        self.df = self.df.dropna()
         dist = []
         K = range(2, 26)
         
